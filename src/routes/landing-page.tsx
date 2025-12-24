@@ -1,0 +1,460 @@
+export const newLandingHTML = `
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutomatizAI - Automatización Profesional de Redes Sociales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="/static/animations.css" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#ec4899'
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 h-1 bg-primary z-50 scroll-progress transition-all duration-300" style="width: 0%"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 bg-gray-950/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-3 observe-fade">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
+                        <i class="fas fa-robot text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold">AutomatizAI</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8 observe-fade">
+                    <a href="#integraciones" class="text-gray-300 hover:text-white transition">Integraciones</a>
+                    <a href="#casos-uso" class="text-gray-300 hover:text-white transition">Casos de Uso</a>
+                    <a href="#precios" class="text-gray-300 hover:text-white transition">Precios</a>
+                    <a href="/login" class="text-gray-300 hover:text-white transition">Iniciar Sesión</a>
+                    <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-6 py-3 rounded-xl hover:shadow-lg hover:shadow-primary/50 transition magnetic-btn font-semibold">
+                        Prueba Gratis
+                    </a>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-30 bg-gray-950/98 backdrop-blur-xl md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-center">
+            <a href="#integraciones" class="text-2xl hover:text-primary transition">Integraciones</a>
+            <a href="#casos-uso" class="text-2xl hover:text-primary transition">Casos de Uso</a>
+            <a href="#precios" class="text-2xl hover:text-primary transition">Precios</a>
+            <a href="/login" class="text-2xl hover:text-primary transition">Iniciar Sesión</a>
+            <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-8 py-4 rounded-xl text-xl font-semibold">
+                Prueba Gratis
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-4 overflow-hidden grid-pattern">
+        <!-- Gradient Blobs -->
+        <div class="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl blob"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl blob float-delay-2"></div>
+        
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <div class="observe-fade inline-block mb-6">
+                    <span class="bg-primary/10 border border-primary/30 text-primary px-4 py-2 rounded-full text-sm font-semibold">
+                        🚀 Automatiza tu presencia en redes sociales
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold mb-8 observe-fade observe-fade-delay-1">
+                    <span class="text-gradient-primary">Automatización Inteligente</span><br/>
+                    para tus Redes Sociales
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto observe-fade observe-fade-delay-2">
+                    Publica, programa y gestiona todas tus redes sociales desde un solo lugar. 
+                    Ahorra hasta <span class="text-primary font-bold">20 horas semanales</span>.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 observe-fade observe-fade-delay-3">
+                    <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-8 py-4 rounded-xl text-lg font-semibold hover:shadow-2xl hover:shadow-primary/50 transition transform hover:scale-105 pulse-glow">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Comienza Gratis
+                    </a>
+                    <a href="#demo" class="border-2 border-white/20 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white/5 transition">
+                        <i class="fas fa-play-circle mr-2"></i>
+                        Ver Demo
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 observe-scale">
+                    <div class="text-center">
+                        <div class="text-4xl md:text-5xl font-bold text-primary mb-2 counter" data-target="500">0</div>
+                        <div class="text-gray-400">Clientes Activos</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl md:text-5xl font-bold text-secondary mb-2 counter" data-target="15">0</div>
+                        <div class="text-gray-400">Plataformas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl md:text-5xl font-bold text-accent mb-2 counter" data-target="1000000">0</div>
+                        <div class="text-gray-400">Posts Automatizados</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl md:text-5xl font-bold text-yellow-400 mb-2 counter" data-target="20">0</div>
+                        <div class="text-gray-400">Horas Ahorradas/Semana</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integrations Section -->
+    <section id="integraciones" class="py-20 px-4 bg-gradient-to-b from-gray-950 to-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 observe-fade">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Conecta Todas tus <span class="text-gradient-primary">Plataformas</span>
+                </h2>
+                <p class="text-xl text-gray-400">Integración nativa con las redes sociales más importantes</p>
+            </div>
+
+            <!-- Logo Carousel -->
+            <div class="relative overflow-hidden mb-16">
+                <div class="logo-carousel-wrapper">
+                    <div class="logo-carousel flex items-center space-x-12 mb-8">
+                        <!-- Row 1 -->
+                        <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 hover-lift">
+                            <i class="fab fa-instagram text-6xl text-pink-500"></i>
+                        </div>
+                        <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 hover-lift">
+                            <i class="fab fa-facebook text-6xl text-blue-500"></i>
+                        </div>
+                        <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 hover-lift">
+                            <i class="fab fa-tiktok text-6xl"></i>
+                        </div>
+                        <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 hover-lift">
+                            <i class="fab fa-twitter text-6xl text-blue-400"></i>
+                        </div>
+                        <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 hover-lift">
+                            <i class="fab fa-linkedin text-6xl text-blue-600"></i>
+                        </div>
+                        <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 hover-lift">
+                            <i class="fab fa-youtube text-6xl text-red-500"></i>
+                        </div>
+                        <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 hover-lift">
+                            <i class="fab fa-pinterest text-6xl text-red-600"></i>
+                        </div>
+                        <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 hover-lift">
+                            <i class="fab fa-telegram text-6xl text-blue-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integration Features Grid -->
+            <div class="grid md:grid-cols-3 gap-8 stagger-list">
+                <div class="stagger-item bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover-lift tilt-card">
+                    <div class="text-5xl mb-4">📱</div>
+                    <h3 class="text-2xl font-bold mb-3">Publicación Multiplataforma</h3>
+                    <p class="text-gray-400">Publica en todas tus redes con un solo clic. Adapta automáticamente el formato para cada plataforma.</p>
+                </div>
+
+                <div class="stagger-item bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover-lift tilt-card">
+                    <div class="text-5xl mb-4">📅</div>
+                    <h3 class="text-2xl font-bold mb-3">Calendario Inteligente</h3>
+                    <p class="text-gray-400">Programa tus posts con IA que sugiere los mejores horarios según tu audiencia.</p>
+                </div>
+
+                <div class="stagger-item bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover-lift tilt-card">
+                    <div class="text-5xl mb-4">🤖</div>
+                    <h3 class="text-2xl font-bold mb-3">Contenido con IA</h3>
+                    <p class="text-gray-400">Genera captions, hashtags y contenido visual con inteligencia artificial integrada.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="casos-uso" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 observe-fade">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    ¿Para quién es <span class="text-gradient-primary">AutomatizAI</span>?
+                </h2>
+                <p class="text-xl text-gray-400">Casos de uso reales que generan resultados</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Case 1 -->
+                <div class="observe-slide-left bg-gradient-to-br from-primary/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-primary/20 hover-lift">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-store text-3xl text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">E-commerce</h3>
+                            <p class="text-gray-400">Tiendas online</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Automatiza la publicación de productos, promociones y actualizaciones de inventario en Instagram, Facebook y TikTok Shop.</p>
+                    <div class="flex items-center space-x-2 text-green-400">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="font-semibold">+45% en ventas online</span>
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="observe-slide-right bg-gradient-to-br from-secondary/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-secondary/20 hover-lift">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-secondary/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-briefcase text-3xl text-secondary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Agencias</h3>
+                            <p class="text-gray-400">Marketing digital</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Gestiona múltiples clientes desde un dashboard. Reportes automáticos y aprobación de contenido integrada.</p>
+                    <div class="flex items-center space-x-2 text-green-400">
+                        <i class="fas fa-users"></i>
+                        <span class="font-semibold">10x más clientes gestionados</span>
+                    </div>
+                </div>
+
+                <!-- Case 3 -->
+                <div class="observe-slide-left bg-gradient-to-br from-accent/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-accent/20 hover-lift">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-user-tie text-3xl text-accent"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Creadores</h3>
+                            <p class="text-gray-400">Influencers & Content Creators</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Programa contenido para todas tus plataformas. Analytics unificados y gestión de comunidad en un solo lugar.</p>
+                    <div class="flex items-center space-x-2 text-green-400">
+                        <i class="fas fa-clock"></i>
+                        <span class="font-semibold">20 horas ahorradas/semana</span>
+                    </div>
+                </div>
+
+                <!-- Case 4 -->
+                <div class="observe-slide-right bg-gradient-to-br from-yellow-500/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-yellow-500/20 hover-lift">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-yellow-500/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-building text-3xl text-yellow-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">Empresas</h3>
+                            <p class="text-gray-400">B2B & Corporativo</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Mantén presencia profesional en LinkedIn, Twitter y más. Aprobaciones por equipos y compliance automatizado.</p>
+                    <div class="flex items-center space-x-2 text-green-400">
+                        <i class="fas fa-rocket"></i>
+                        <span class="font-semibold">3x engagement en LinkedIn</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="precios" class="py-20 px-4 bg-gradient-to-b from-gray-950 to-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 observe-fade">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Planes que Escalan con tu <span class="text-gradient-primary">Negocio</span>
+                </h2>
+                <p class="text-xl text-gray-400">Sin permanencia. Cancela cuando quieras.</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <!-- Starter Plan -->
+                <div class="observe-scale bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 hover-lift">
+                    <div class="text-sm font-semibold text-gray-400 mb-2">STARTER</div>
+                    <div class="text-5xl font-bold mb-6">
+                        \$49<span class="text-2xl text-gray-400">/mes</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>3 Perfiles Sociales</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>30 Posts Programados/mes</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Calendario Básico</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Analytics Básico</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Soporte por Email</span></li>
+                    </ul>
+                    <a href="/register" class="block w-full text-center bg-white/10 px-6 py-3 rounded-xl hover:bg-white/20 transition font-semibold">
+                        Empezar
+                    </a>
+                </div>
+
+                <!-- Growth Plan -->
+                <div class="observe-scale bg-gradient-to-br from-primary/20 to-primary/5 backdrop-blur-lg rounded-3xl p-8 border-2 border-primary transform scale-105 hover-lift">
+                    <div class="bg-primary text-white text-xs px-3 py-1 rounded-full inline-block mb-4">MÁS POPULAR</div>
+                    <div class="text-sm font-semibold text-gray-400 mb-2">GROWTH</div>
+                    <div class="text-5xl font-bold mb-6">
+                        \$89<span class="text-2xl text-gray-400">/mes</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>10 Perfiles Sociales</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>100 Posts Programados/mes</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Calendario Avanzado con IA</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Analytics Completo</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Generación de Contenido IA</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Reportes Automáticos</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Soporte Prioritario</span></li>
+                    </ul>
+                    <a href="/register" class="block w-full text-center bg-gradient-to-r from-primary to-secondary px-6 py-3 rounded-xl hover:shadow-lg hover:shadow-primary/50 transition font-semibold">
+                        Prueba Gratis
+                    </a>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="observe-scale bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 hover-lift">
+                    <div class="text-sm font-semibold text-gray-400 mb-2">PRO</div>
+                    <div class="text-5xl font-bold mb-6">
+                        \$130<span class="text-2xl text-gray-400">/mes</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>25 Perfiles Sociales</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Posts Ilimitados</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Todo de Growth +</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Multi-usuario (3 usuarios)</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Aprobación de Contenido</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>White Label</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>API Access</span></li>
+                    </ul>
+                    <a href="/register" class="block w-full text-center bg-white/10 px-6 py-3 rounded-xl hover:bg-white/20 transition font-semibold">
+                        Empezar
+                    </a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="observe-scale bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10 hover-lift">
+                    <div class="text-sm font-semibold text-gray-400 mb-2">ENTERPRISE</div>
+                    <div class="text-5xl font-bold mb-6">
+                        \$190<span class="text-2xl text-gray-400">/mes</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Perfiles Ilimitados</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Todo de Pro +</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Usuarios Ilimitados</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Account Manager Dedicado</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Onboarding Personalizado</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>SLA Garantizado</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i><span>Soporte 24/7</span></li>
+                    </ul>
+                    <a href="/register" class="block w-full text-center bg-white/10 px-6 py-3 rounded-xl hover:bg-white/20 transition font-semibold">
+                        Contactar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto observe-scale">
+            <div class="bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 backdrop-blur-lg rounded-3xl p-12 border border-primary/30 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">¿Listo para Automatizar?</h2>
+                <p class="text-xl text-gray-300 mb-8">Únete a +500 marcas que ya están ahorrando tiempo y dinero</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-8 py-4 rounded-xl text-lg font-semibold hover:shadow-2xl hover:shadow-primary/50 transition transform hover:scale-105">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Comienza Gratis - 14 Días
+                    </a>
+                    <a href="#demo" class="border-2 border-white/30 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white/10 transition">
+                        <i class="fas fa-calendar mr-2"></i>
+                        Agendar Demo
+                    </a>
+                </div>
+                <p class="text-sm text-gray-400 mt-6">No requiere tarjeta de crédito • Cancela cuando quieras</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12 px-4 bg-gray-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
+                            <i class="fas fa-robot text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">AutomatizAI</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">Automatización profesional de redes sociales para empresas modernas.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Producto</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Características</a></li>
+                        <li><a href="#precios" class="hover:text-white transition">Precios</a></li>
+                        <li><a href="#" class="hover:text-white transition">Integraciones</a></li>
+                        <li><a href="#" class="hover:text-white transition">Casos de Uso</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Recursos</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition">Documentación</a></li>
+                        <li><a href="#" class="hover:text-white transition">Tutoriales</a></li>
+                        <li><a href="#" class="hover:text-white transition">API</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Empresa</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Sobre Nosotros</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contacto</a></li>
+                        <li><a href="#" class="hover:text-white transition">Términos</a></li>
+                        <li><a href="#" class="hover:text-white transition">Privacidad</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2024 AutomatizAI. Todos los derechos reservados.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-primary transition"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition"><i class="fab fa-linkedin text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition"><i class="fab fa-youtube text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+    <script src="/static/scroll-animations.js"></script>
+</body>
+</html>
+`

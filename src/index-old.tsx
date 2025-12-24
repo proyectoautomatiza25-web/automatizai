@@ -321,7 +321,253 @@ app.get('/api/stats', async (c) => {
 
 // Landing page
 app.get('/', (c) => {
-  return c.html(newLandingHTML)
+  return c.html(`
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AutomatizAI - Plataforma de Automatización con IA</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
+        <script>
+          tailwind.config = {
+            theme: {
+              extend: {
+                colors: {
+                  primary: '#6366f1',
+                  secondary: '#8b5cf6',
+                  accent: '#ec4899'
+                }
+              }
+            }
+          }
+        </script>
+    </head>
+    <body class="bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 text-white">
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 bg-black/20 backdrop-blur-lg border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-robot text-3xl text-primary"></i>
+                        <span class="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">AutomatizAI</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="#features" class="hover:text-primary transition">Características</a>
+                        <a href="#templates" class="hover:text-primary transition">Templates</a>
+                        <a href="#pricing" class="hover:text-primary transition">Precios</a>
+                        <a href="/login" class="hover:text-primary transition">Iniciar Sesión</a>
+                        <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-6 py-2 rounded-full hover:shadow-lg hover:shadow-primary/50 transition">
+                            Comenzar Gratis
+                        </a>
+                    </div>
+                    <button id="mobile-menu-btn" class="md:hidden">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-black/95 backdrop-blur-lg md:hidden">
+            <div class="flex flex-col items-center justify-center h-full space-y-8">
+                <a href="#features" class="text-2xl hover:text-primary transition">Características</a>
+                <a href="#templates" class="text-2xl hover:text-primary transition">Templates</a>
+                <a href="#pricing" class="text-2xl hover:text-primary transition">Precios</a>
+                <a href="/login" class="text-2xl hover:text-primary transition">Iniciar Sesión</a>
+                <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-8 py-3 rounded-full text-xl">
+                    Comenzar Gratis
+                </a>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="pt-32 pb-20 px-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <div class="animate-fade-in-up">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent">
+                        Automatiza tu Negocio<br/>con Inteligencia Artificial
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                        Conecta tus aplicaciones favoritas, crea workflows inteligentes con N8N y lleva tu productividad al siguiente nivel
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-primary/50 transition transform hover:scale-105">
+                            <i class="fas fa-rocket mr-2"></i>
+                            Empezar Ahora - Gratis
+                        </a>
+                        <a href="#templates" class="border-2 border-white/30 px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/10 transition">
+                            <i class="fas fa-play mr-2"></i>
+                            Ver Templates
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20">
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
+                        <div class="text-4xl font-bold text-primary mb-2">500+</div>
+                        <div class="text-gray-400">Automatizaciones</div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
+                        <div class="text-4xl font-bold text-secondary mb-2">50+</div>
+                        <div class="text-gray-400">Integraciones</div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
+                        <div class="text-4xl font-bold text-accent mb-2">1M+</div>
+                        <div class="text-gray-400">Ejecuciones</div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
+                        <div class="text-4xl font-bold text-yellow-400 mb-2">99.9%</div>
+                        <div class="text-gray-400">Uptime</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">¿Por qué AutomatizAI?</h2>
+                    <p class="text-xl text-gray-400">La plataforma más completa para automatizar tu negocio</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-primary/50 transition group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">🤖</div>
+                        <h3 class="text-2xl font-bold mb-3">IA Integrada</h3>
+                        <p class="text-gray-400">Conecta con OpenAI, Claude y más para automatizaciones inteligentes</p>
+                    </div>
+
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-secondary/50 transition group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">⚡</div>
+                        <h3 class="text-2xl font-bold mb-3">N8N Potenciado</h3>
+                        <p class="text-gray-400">Workflows visuales con más de 400 integraciones nativas</p>
+                    </div>
+
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-accent/50 transition group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">🔒</div>
+                        <h3 class="text-2xl font-bold mb-3">100% Seguro</h3>
+                        <p class="text-gray-400">Tus datos y API keys protegidos con encriptación de nivel empresarial</p>
+                    </div>
+
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-primary/50 transition group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">📊</div>
+                        <h3 class="text-2xl font-bold mb-3">Dashboard Intuitivo</h3>
+                        <p class="text-gray-400">Gestiona todas tus automatizaciones desde un solo lugar</p>
+                    </div>
+
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-secondary/50 transition group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">📱</div>
+                        <h3 class="text-2xl font-bold mb-3">Multi-Plataforma</h3>
+                        <p class="text-gray-400">WhatsApp, Instagram, Email, CRM y más de 50 integraciones</p>
+                    </div>
+
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover:border-accent/50 transition group">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition">🎯</div>
+                        <h3 class="text-2xl font-bold mb-3">Templates Listos</h3>
+                        <p class="text-gray-400">Más de 100 automatizaciones pre-construidas para usar en minutos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Planes para Cada Necesidad</h2>
+                    <p class="text-xl text-gray-400">Empieza gratis y escala cuando lo necesites</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Free Plan -->
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                        <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                        <div class="text-5xl font-bold mb-6">$0<span class="text-2xl text-gray-400">/mes</span></div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>5 Automatizaciones</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>1,000 Ejecuciones/mes</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>3 Integraciones</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Templates básicos</li>
+                        </ul>
+                        <a href="/register" class="block w-full text-center bg-white/10 px-6 py-3 rounded-full hover:bg-white/20 transition">
+                            Comenzar Gratis
+                        </a>
+                    </div>
+
+                    <!-- Pro Plan -->
+                    <div class="bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-lg rounded-2xl p-8 border-2 border-primary transform scale-105">
+                        <div class="bg-primary text-white text-sm px-3 py-1 rounded-full inline-block mb-4">MÁS POPULAR</div>
+                        <h3 class="text-2xl font-bold mb-2">Pro</h3>
+                        <div class="text-5xl font-bold mb-6">$49<span class="text-2xl text-gray-400">/mes</span></div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>50 Automatizaciones</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>50,000 Ejecuciones/mes</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Integraciones ilimitadas</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Todos los templates</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Soporte prioritario</li>
+                        </ul>
+                        <a href="/register" class="block w-full text-center bg-gradient-to-r from-primary to-secondary px-6 py-3 rounded-full hover:shadow-lg hover:shadow-primary/50 transition">
+                            Comenzar Prueba Gratis
+                        </a>
+                    </div>
+
+                    <!-- Enterprise Plan -->
+                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+                        <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                        <div class="text-5xl font-bold mb-6">$199<span class="text-2xl text-gray-400">/mes</span></div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Automatizaciones ilimitadas</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Ejecuciones ilimitadas</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>APIs personalizadas</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Workflows personalizados</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Soporte 24/7</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Onboarding dedicado</li>
+                        </ul>
+                        <a href="/register" class="block w-full text-center bg-white/10 px-6 py-3 rounded-full hover:bg-white/20 transition">
+                            Contactar Ventas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 px-4">
+            <div class="max-w-4xl mx-auto text-center bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-lg rounded-3xl p-12 border border-primary/30">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">¿Listo para Automatizar?</h2>
+                <p class="text-xl text-gray-300 mb-8">Únete a cientos de empresas que ya están ahorrando tiempo y dinero</p>
+                <a href="/register" class="inline-block bg-gradient-to-r from-primary to-secondary px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-primary/50 transition transform hover:scale-105">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Comenzar Ahora - Es Gratis
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 py-12 px-4">
+            <div class="max-w-7xl mx-auto text-center text-gray-400">
+                <div class="flex justify-center items-center space-x-2 mb-4">
+                    <i class="fas fa-robot text-2xl text-primary"></i>
+                    <span class="text-xl font-bold text-white">AutomatizAI</span>
+                </div>
+                <p>© 2024 AutomatizAI. Todos los derechos reservados.</p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="#" class="hover:text-primary transition"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="hover:text-primary transition"><i class="fab fa-linkedin text-xl"></i></a>
+                    <a href="#" class="hover:text-primary transition"><i class="fab fa-github text-xl"></i></a>
+                </div>
+            </div>
+        </footer>
+
+        <script src="/static/app.js"></script>
+    </body>
+    </html>
+  `)
 })
 
 // Login page
