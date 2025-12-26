@@ -5,7 +5,9 @@ import { dashboardHTML } from './routes/dashboard'
 import { templatesPageHTML } from './routes/templates'
 import { apiKeysPageHTML } from './routes/api-keys'
 import { completeLandingHTML } from './routes/landing-complete'
+import { paymentSuccessPage, paymentFailurePage, paymentPendingPage } from './routes/payment-pages'
 import apiRoutes from './routes/api-routes'
+import mercadopagoRoutes from './routes/mercadopago'
 
 type Bindings = {
   DB: D1Database;
@@ -21,6 +23,7 @@ app.use('/static/*', serveStatic({ root: './public' }))
 
 // Mount API routes
 app.route('/api', apiRoutes)
+app.route('/api/mercadopago', mercadopagoRoutes)
 
 // ============================================
 // API ROUTES
@@ -540,6 +543,20 @@ app.get('/register', (c) => {
     </body>
     </html>
   `)
+})
+
+// Payment Result Pages
+app.get('/payment-success', (c) => {
+  const plan = c.req.query('plan') || 'unknown'
+  return c.html(paymentSuccessPage(plan))
+})
+
+app.get('/payment-failure', (c) => {
+  return c.html(paymentFailurePage)
+})
+
+app.get('/payment-pending', (c) => {
+  return c.html(paymentPendingPage)
 })
 
 // Dashboard Routes

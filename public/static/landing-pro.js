@@ -424,6 +424,77 @@ const initFormHandlers = () => {
 };
 
 // ============================================
+// 13. MERCADO PAGO INTEGRATION
+// ============================================
+const initMercadoPago = () => {
+  // Get all "Probar gratis" and "Comenzar" buttons from pricing section
+  const pricingButtons = document.querySelectorAll('.pricing-card a[href="#registro"]');
+  
+  pricingButtons.forEach((btn, index) => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      // Determine plan based on button position
+      const plans = ['starter', 'growth', 'pro', 'enterprise'];
+      const planId = plans[index] || 'starter';
+      
+      // Show loading state
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+      btn.style.pointerEvents = 'none';
+      
+      try {
+        // For demo purposes, use a test user
+        // In production, get from authenticated session
+        const userId = 'demo_user_' + Date.now();
+        const userEmail = 'demo@automatizai.com';
+        
+        // Create payment preference
+        const response = await fetch('/api/mercadopago/create-preference', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            planId,
+            userId,
+            userEmail
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Error al crear preferencia de pago');
+        }
+        
+        const data = await response.json();
+        
+        if (data.success && data.sandboxInitPoint) {
+          // Redirect to Mercado Pago checkout
+          window.location.href = data.sandboxInitPoint;
+        } else {
+          throw new Error('No se recibió URL de pago');
+        }
+        
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error al procesar el pago. Por favor, intenta de nuevo.');
+        btn.innerHTML = originalText;
+        btn.style.pointerEvents = '';
+      }
+    });
+  });
+  
+  // Also handle hero CTA buttons
+  const heroCTAs = document.querySelectorAll('.hero-cta a[href="#precios"]');
+  heroCTAs.forEach(cta => {
+    cta.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('precios').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+};
+
+// ============================================
 // INITIALIZATION
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -439,8 +510,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initParallax();
   initScrollProgress();
   initFormHandlers();
+  initMercadoPago();
 
-  console.log('🚀 AutomatizAI Landing initialized!');
+  console.log('🚀 AutomatizAI Landing initialized with MercadoPago!');
 });
 
 // Prevent scroll on load
