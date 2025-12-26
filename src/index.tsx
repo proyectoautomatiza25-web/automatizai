@@ -5,6 +5,7 @@ import { dashboardHTML } from './routes/dashboard'
 import { templatesPageHTML } from './routes/templates'
 import { apiKeysPageHTML } from './routes/api-keys'
 import { newLandingHTML } from './routes/landing-page'
+import apiRoutes from './routes/api-routes'
 
 type Bindings = {
   DB: D1Database;
@@ -17,6 +18,9 @@ app.use('/api/*', cors())
 
 // Serve static files
 app.use('/static/*', serveStatic({ root: './public' }))
+
+// Mount API routes
+app.route('/api', apiRoutes)
 
 // ============================================
 // API ROUTES
