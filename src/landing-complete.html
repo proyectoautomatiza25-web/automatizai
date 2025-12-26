@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutomatizAI - Automatiza tu Negocio Completo con IA | +100 Integraciones Empresariales</title>
+    <meta name="description" content="Plataforma de automatización empresarial. Conecta +100 herramientas, automatiza procesos y escala sin contratar. CRM, Email Marketing, E-commerce, Analytics y más. Prueba gratis 14 días.">
+    <meta name="keywords" content="automatización, integraciones, CRM, redes sociales, e-commerce, workflow, IA, productividad, SaaS">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/styles.css" rel="stylesheet">
+    <link href="/static/animations.css" rel="stylesheet">
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#ec4899'
+            },
+            animation: {
+              'scroll': 'scroll 30s linear infinite',
+              'scroll-slow': 'scroll 40s linear infinite',
+              'scroll-fast': 'scroll 20s linear infinite',
+            },
+            keyframes: {
+              scroll: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        
+        /* Logo scroll animation */
+        .logo-scroll {
+            animation: scroll 30s linear infinite;
+        }
+        .logo-scroll:hover {
+            animation-play-state: paused;
+        }
+        
+        /* Gradient background animation */
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #1e1b4b, #312e81, #3b0764, #4c1d95);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+        }
+        
+        /* Counter animation */
+        .counter {
+            transition: all 0.3s ease;
+        }
+        
+        /* Grayscale to color on hover */
+        .logo-item {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        .logo-item:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-950 text-white antialiased overflow-x-hidden">
+    
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 h-1 bg-gradient-to-r from-primary via-secondary to-accent z-50 scroll-progress transition-all duration-300" style="width: 0%"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 bg-gray-950/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
+                        <i class="fas fa-robot text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold">AutomatizAI</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#integraciones" class="text-gray-300 hover:text-white transition">Integraciones</a>
+                    <a href="#casos-uso" class="text-gray-300 hover:text-white transition">Casos de Uso</a>
+                    <a href="#precios" class="text-gray-300 hover:text-white transition">Precios</a>
+                    <a href="/login" class="text-gray-300 hover:text-white transition">Iniciar Sesión</a>
+                    <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-6 py-3 rounded-xl hover:shadow-lg hover:shadow-primary/50 transition font-semibold">
+                        Prueba Gratis
+                    </a>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-30 bg-gray-950/98 backdrop-blur-xl md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8 text-center">
+            <a href="#integraciones" class="text-2xl hover:text-primary transition">Integraciones</a>
+            <a href="#casos-uso" class="text-2xl hover:text-primary transition">Casos de Uso</a>
+            <a href="#precios" class="text-2xl hover:text-primary transition">Precios</a>
+            <a href="/login" class="text-2xl hover:text-primary transition">Iniciar Sesión</a>
+            <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-8 py-4 rounded-xl text-xl font-semibold">
+                Prueba Gratis
+            </a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 px-4 overflow-hidden gradient-bg">
+        <!-- Animated blobs -->
+        <div class="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl blob"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl blob float-delay-2"></div>
+        
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-12">
+                <div class="observe-fade inline-block mb-6">
+                    <span class="bg-primary/10 border border-primary/30 text-primary px-4 py-2 rounded-full text-sm font-semibold">
+                        🚀 Automatiza todo tu negocio con IA
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold mb-8 observe-fade observe-fade-delay-1 leading-tight">
+                    Automatiza tu Negocio<br/>
+                    <span class="text-gradient-primary">Completo con IA</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto observe-fade observe-fade-delay-2 leading-relaxed">
+                    Conecta <span class="text-primary font-bold">todas tus herramientas</span>, automatiza procesos repetitivos y escala tu empresa sin contratar más personal. Integraciones con <span class="text-secondary font-bold">+100 plataformas empresariales</span>.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 observe-fade observe-fade-delay-3">
+                    <a href="/register" class="bg-gradient-to-r from-primary to-secondary px-8 py-4 rounded-xl text-lg font-semibold hover:shadow-2xl hover:shadow-primary/50 transition transform hover:scale-105">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Prueba Gratis 14 Días
+                    </a>
+                    <a href="#demo" class="border-2 border-white/20 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white/5 transition">
+                        <i class="fas fa-play-circle mr-2"></i>
+                        Ver Demo en Vivo
+                    </a>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400 observe-fade observe-fade-delay-4">
+                    <span class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Sin tarjeta de crédito</span>
+                    <span class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Configuración en 5 minutos</span>
+                    <span class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Cancela cuando quieras</span>
+                </div>
+            </div>
+            
+            <!-- Stats Section -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 observe-scale">
+                <div class="text-center bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
+                    <div class="text-4xl md:text-5xl font-bold text-primary mb-2 counter" data-target="156">0</div>
+                    <div class="text-gray-400 text-sm">% Aumento en<br/>Productividad</div>
+                </div>
+                <div class="text-center bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
+                    <div class="text-4xl md:text-5xl font-bold text-secondary mb-2 counter" data-target="847">0</div>
+                    <div class="text-gray-400 text-sm">Horas Ahorradas<br/>por Cliente/Mes</div>
+                </div>
+                <div class="text-center bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
+                    <div class="text-4xl md:text-5xl font-bold text-accent mb-2"><span class="counter" data-target="98">0</span>.7%</div>
+                    <div class="text-gray-400 text-sm">Tasa de Éxito<br/>en Integraciones</div>
+                </div>
+                <div class="text-center bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
+                    <div class="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">$<span class="counter" data-target="12450">0</span></div>
+                    <div class="text-gray-400 text-sm">Ahorro Mensual<br/>Promedio</div>
+                </div>
+            </div>
+            
+            <p class="text-center text-gray-500 text-xs mt-6">Datos basados en +50 empresas que usan AutomatizAI desde enero 2024</p>
+        </div>
+    </section>
+
+    <!-- LOGOS DE INTEGRACIONES - Scroll Infinito -->
+    <section id="integraciones" class="py-20 px-4 bg-gray-900/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Se integra con las <span class="text-gradient-primary">herramientas que ya usas</span>
+                </h2>
+                <p class="text-xl text-gray-400">Más de 100 integraciones nativas listas para usar</p>
+            </div>
+
+            <!-- Fila 1 - Redes Sociales -->
+            <div class="overflow-hidden mb-8">
+                <div class="flex items-center space-x-12 logo-scroll">
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/instagram-2016-5.svg" alt="Instagram" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/facebook-3.svg" alt="Facebook" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/linkedin-icon-2.svg" alt="LinkedIn" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/tiktok-icon-2.svg" alt="TikTok" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/twitter-6.svg" alt="X/Twitter" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/youtube-icon.svg" alt="YouTube" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/pinterest-1.svg" alt="Pinterest" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/telegram-1.svg" alt="Telegram" class="w-16 h-16">
+                    </div>
+                    <!-- Duplicate for infinite scroll -->
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/instagram-2016-5.svg" alt="Instagram" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/facebook-3.svg" alt="Facebook" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/linkedin-icon-2.svg" alt="LinkedIn" class="w-16 h-16">
+                    </div>
+                    <div class="flex-shrink-0 w-32 h-32 bg-white/5 backdrop-blur-lg rounded-2xl flex items-center justify-center border border-white/10 logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/tiktok-icon-2.svg" alt="TikTok" class="w-16 h-16">
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Integration Section -->
+            <div class="text-center mt-12">
+                <p class="text-gray-400 mb-6">¿No encuentras la integración que necesitas?</p>
+                <a href="#" class="inline-flex items-center space-x-2 text-primary hover:text-secondary transition">
+                    <span>Solicitar integración personalizada</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARACTERÍSTICAS PRINCIPALES -->
+    <section class="py-20 px-4 bg-gray-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Todo lo que necesitas para <span class="text-gradient-primary">automatizar tu negocio</span>
+                </h2>
+                <p class="text-xl text-gray-400">Características empresariales que impulsan tu productividad</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover-lift observe-fade">
+                    <div class="text-5xl mb-4">🤖</div>
+                    <h3 class="text-2xl font-bold mb-3">Automatización Inteligente con IA</h3>
+                    <p class="text-gray-400 mb-4">Crea workflows complejos sin código. Nuestra IA aprende de tus procesos y sugiere optimizaciones automáticamente.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-primary mr-2"></i>Triggers personalizados</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Condiciones lógicas avanzadas</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Machine learning integrado</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover-lift observe-fade">
+                    <div class="text-5xl mb-4">🔗</div>
+                    <h3 class="text-2xl font-bold mb-3">+100 Integraciones Nativas</h3>
+                    <p class="text-gray-400 mb-4">Conecta CRM, e-commerce, redes sociales, email marketing, analytics y más. Sin necesidad de desarrollo técnico.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-primary mr-2"></i>API connections seguras</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Webhooks en tiempo real</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Sincronización bidireccional</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover-lift observe-fade">
+                    <div class="text-5xl mb-4">📊</div>
+                    <h3 class="text-2xl font-bold mb-3">Analytics Avanzado</h3>
+                    <p class="text-gray-400 mb-4">Dashboard unificado con métricas de todas tus plataformas. Toma decisiones basadas en datos reales.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-primary mr-2"></i>Reportes personalizados</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Alertas inteligentes</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Export a Excel/PDF</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover-lift observe-fade">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <h3 class="text-2xl font-bold mb-3">Ejecución en Tiempo Real</h3>
+                    <p class="text-gray-400 mb-4">Tus automatizaciones se ejecutan al instante. Infraestructura cloud escalable con 99.9% uptime.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-primary mr-2"></i>Latencia < 100ms</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Escalamiento automático</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Redundancia geográfica</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover-lift observe-fade">
+                    <div class="text-5xl mb-4">🔐</div>
+                    <h3 class="text-2xl font-bold mb-3">Seguridad Empresarial</h3>
+                    <p class="text-gray-400 mb-4">Encriptación AES-256, cumplimiento GDPR, auditorías completas. Tus datos están protegidos.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-primary mr-2"></i>Certificación ISO 27001</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Backups automáticos</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>2FA obligatorio</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 hover-lift observe-fade">
+                    <div class="text-5xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold mb-3">Soporte Prioritario</h3>
+                    <p class="text-gray-400 mb-4">Equipo dedicado en español. Onboarding personalizado y capacitación incluida.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><i class="fas fa-check text-primary mr-2"></i>Chat en vivo 24/7</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Video tutoriales</li>
+                        <li><i class="fas fa-check text-primary mr-2"></i>Account manager dedicado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script para animaciones -->
+    <script src="/static/app.js"></script>
+    <script src="/static/scroll-animations.js"></script>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+
+    <!-- CASOS DE USO REALES -->
+    <section id="casos-uso" class="py-20 px-4 bg-gray-900/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Automatiza <span class="text-gradient-primary">cualquier proceso</span> de tu negocio
+                </h2>
+                <p class="text-xl text-gray-400">Soluciones probadas para cada industria</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- E-commerce -->
+                <div class="bg-gradient-to-br from-primary/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-primary/20 hover-lift observe-slide-left">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-shopping-cart text-3xl text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">E-COMMERCE</h3>
+                            <p class="text-gray-400">Tiendas Online</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Sincroniza inventario entre Shopify y Mercado Libre. Publica productos en redes sociales automáticamente. Envía emails de carritos abandonados.</p>
+                    <div class="space-y-2 mb-4 text-sm text-gray-400">
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Sincronización de inventario en tiempo real</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Publicación automática en RRSS</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Recuperación de carritos abandonados</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-green-400 font-semibold"><i class="fas fa-chart-line mr-2"></i>Ahorra 25h/semana</div>
+                        <div class="text-xs text-gray-500">+15 tiendas online</div>
+                    </div>
+                </div>
+
+                <!-- Agencias -->
+                <div class="bg-gradient-to-br from-secondary/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-secondary/20 hover-lift observe-slide-up">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-secondary/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-users text-3xl text-secondary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">AGENCIAS</h3>
+                            <p class="text-gray-400">Marketing Digital</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Programa contenido para 20+ cuentas desde un dashboard. Reportes automáticos a clientes vía email. Alertas de menciones y comentarios.</p>
+                    <div class="space-y-2 mb-4 text-sm text-gray-400">
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Gestión multi-cliente escalable</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Reportes automáticos personalizados</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Analytics consolidado</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-green-400 font-semibold"><i class="fas fa-chart-line mr-2"></i>3x más clientes</div>
+                        <div class="text-xs text-gray-500">8 agencias digitales</div>
+                    </div>
+                </div>
+
+                <!-- B2B -->
+                <div class="bg-gradient-to-br from-accent/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-accent/20 hover-lift observe-slide-right">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-building text-3xl text-accent"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">EMPRESAS B2B</h3>
+                            <p class="text-gray-400">Ventas y CRM</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Leads de LinkedIn directo a HubSpot. Emails de seguimiento automáticos. Actualización de deals en Pipedrive. Notificaciones Slack de oportunidades.</p>
+                    <div class="space-y-2 mb-4 text-sm text-gray-400">
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Automatización de ventas completa</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Integración CRM nativa</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Follow-ups inteligentes</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-green-400 font-semibold"><i class="fas fa-chart-line mr-2"></i>+45% conversión</div>
+                        <div class="text-xs text-gray-500">12 empresas SaaS</div>
+                    </div>
+                </div>
+
+                <!-- Creadores -->
+                <div class="bg-gradient-to-br from-yellow-500/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-yellow-500/20 hover-lift observe-slide-left">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-yellow-500/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-video text-3xl text-yellow-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">CREADORES</h3>
+                            <p class="text-gray-400">Influencers & Content</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Publica en 7 redes sociales simultáneamente. Adapta formato automáticamente. Programa un mes de contenido en 2 horas. Analytics consolidado.</p>
+                    <div class="space-y-2 mb-4 text-sm text-gray-400">
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Publicación multiplataforma</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Adaptación automática de formatos</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Calendario de contenido IA</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-green-400 font-semibold"><i class="fas fa-chart-line mr-2"></i>20h ahorradas/semana</div>
+                        <div class="text-xs text-gray-500">+30 influencers</div>
+                    </div>
+                </div>
+
+                <!-- Freelancers -->
+                <div class="bg-gradient-to-br from-blue-500/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-blue-500/20 hover-lift observe-slide-up">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-laptop text-3xl text-blue-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">CONSULTORES</h3>
+                            <p class="text-gray-400">Freelancers</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Envía propuestas automáticas a nuevos leads. Facturación automática integrada con Stripe. Follow-ups programados inteligentes.</p>
+                    <div class="space-y-2 mb-4 text-sm text-gray-400">
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Propuestas automatizadas</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Facturación integrada</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Time tracking y reportes</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-green-400 font-semibold"><i class="fas fa-chart-line mr-2"></i>Ahorra $800/mes</div>
+                        <div class="text-xs text-gray-500">25+ consultores</div>
+                    </div>
+                </div>
+
+                <!-- Servicios Profesionales -->
+                <div class="bg-gradient-to-br from-pink-500/10 to-transparent backdrop-blur-lg rounded-3xl p-8 border border-pink-500/20 hover-lift observe-slide-right">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-16 h-16 bg-pink-500/20 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-clinic-medical text-3xl text-pink-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold">SERVICIOS</h3>
+                            <p class="text-gray-400">Clínicas y Estudios</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Confirmaciones automáticas de citas. Recordatorios por WhatsApp/Email/SMS. Encuestas de satisfacción post-servicio. Integración con Calendar.</p>
+                    <div class="space-y-2 mb-4 text-sm text-gray-400">
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Gestión de agendamiento</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Recordatorios multicanal</div>
+                        <div><i class="fas fa-check text-green-400 mr-2"></i>Encuestas automatizadas</div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-green-400 font-semibold"><i class="fas fa-chart-line mr-2"></i>-60% no-shows</div>
+                        <div class="text-xs text-gray-500">18 clínicas/estudios</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script para animaciones -->
+    <script src="/static/app.js"></script>
+    <script src="/static/scroll-animations.js"></script>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

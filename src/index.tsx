@@ -4,7 +4,7 @@ import { serveStatic } from 'hono/cloudflare-workers'
 import { dashboardHTML } from './routes/dashboard'
 import { templatesPageHTML } from './routes/templates'
 import { apiKeysPageHTML } from './routes/api-keys'
-import { newLandingHTML } from './routes/landing-page'
+import { completeLandingHTML } from './routes/landing-complete'
 import apiRoutes from './routes/api-routes'
 
 type Bindings = {
@@ -325,7 +325,7 @@ app.get('/api/stats', async (c) => {
 
 // Landing page
 app.get('/', (c) => {
-  return c.html(newLandingHTML)
+  return c.html(completeLandingHTML)
 })
 
 // Login page
