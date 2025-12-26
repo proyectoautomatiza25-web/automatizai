@@ -427,4 +427,64 @@ apiRoutes.get('/queue/stats', async (c) => {
   }
 })
 
+// ============================================
+// ANALYTICS ROUTES
+// ============================================
+
+// Obtener analytics del usuario
+apiRoutes.get('/analytics/:userId', async (c) => {
+  try {
+    const userId = c.req.param('userId')
+    const { DB } = c.env
+    
+    // Calcular estadísticas del mes actual
+    const currentMonth = new Date().toISOString().substring(0, 7) // YYYY-MM
+    
+    // Posts publicados este mes
+    const postsPublished = await DB.prepare(`
+      SELECT COUNT(*) as count
+      FROM automations
+      WHERE user_id = ? 
+        AND status = 'published'
+        AND strftime('%Y-%m', published_at) = ?
+    `).bind(userId, currentMonth).first()
+    
+    // Automatizaciones activas (pendientes)
+    const activeAutomations = await DB.prepare(`
+      SELECT COUNT(*) as count
+      FROM automations
+      WHERE user_id = ? AND status = 'pending'
+    `).bind(userId).first()
+    
+    // Calcular tiempo ahorrado (0.25 horas por post = 15 minutos)
+    const timeSaved = (postsPublished?.count || 0) * 0.25
+    
+    return c.json({
+      posts_published: postsPublished?.count || 0,
+      active_automations: activeAutomations?.count || 0,
+      time_saved_hours: timeSaved
+    })
+  } catch (error) {
+    console.error('Error obteniendo analytics:', error)
+    return c.json({ error: 'Error al obtener analytics' }, 500)
+  }
+})
+
+// Incrementar contador de analytics (para worker)
+apiRoutes.post('/analytics/:userId/increment', async (c) => {
+  try {
+    const internalSecret = c.req.header('X-Internal-Secret')
+    if (internalSecret !== process.env.INTERNAL_API_SECRET) {
+      return c.json({ error: 'No autorizado' }, 401)
+    }
+    
+    // Analytics se calculan en tiempo real desde automations table
+    // Este endpoint es para futuras expansiones
+    return c.json({ success: true })
+  } catch (error) {
+    console.error('Error incrementando analytics:', error)
+    return c.json({ error: 'Error' }, 500)
+  }
+})
+
 export default apiRoutes
