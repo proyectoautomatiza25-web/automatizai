@@ -2,311 +2,503 @@ export const dashboardHTML = `
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - AutomatizAI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: '#6366f1',
-              secondary: '#8b5cf6',
-              accent: '#ec4899'
-            }
-          }
-        }
-      }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AutomatizAI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin {
+      animation: spin 1s linear infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white">
-    <!-- Sidebar -->
-    <div class="flex h-screen">
-        <aside class="w-64 bg-gray-800/50 backdrop-blur-lg border-r border-white/10">
-            <div class="p-6">
-                <div class="flex items-center space-x-2 mb-8">
-                    <i class="fas fa-robot text-3xl text-primary"></i>
-                    <span class="text-xl font-bold">AutomatizAI</span>
-                </div>
-
-                <nav class="space-y-2">
-                    <a href="/dashboard" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary/20 text-primary">
-                        <i class="fas fa-home"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    <a href="/dashboard/automations" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white/5 transition">
-                        <i class="fas fa-cogs"></i>
-                        <span>Automatizaciones</span>
-                    </a>
-                    <a href="/dashboard/templates" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white/5 transition">
-                        <i class="fas fa-layer-group"></i>
-                        <span>Templates</span>
-                    </a>
-                    <a href="/dashboard/api-keys" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white/5 transition">
-                        <i class="fas fa-key"></i>
-                        <span>API Keys</span>
-                    </a>
-                    <a href="/dashboard/subscription" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white/5 transition">
-                        <i class="fas fa-crown"></i>
-                        <span>Suscripción</span>
-                    </a>
-                </nav>
-            </div>
-
-            <div class="absolute bottom-0 w-64 p-6 border-t border-white/10">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div>
-                        <div class="font-semibold" id="userName">Usuario</div>
-                        <div class="text-sm text-gray-400" id="userPlan">Plan Free</div>
-                    </div>
-                </div>
-                <button onclick="logout()" class="w-full bg-red-500/20 hover:bg-red-500/30 px-4 py-2 rounded-lg transition">
-                    <i class="fas fa-sign-out-alt mr-2"></i>
-                    Cerrar Sesión
-                </button>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto">
-            <div class="p-8">
-                <!-- Header -->
-                <div class="mb-8">
-                    <h1 class="text-3xl font-bold mb-2">Bienvenido de Vuelta! 👋</h1>
-                    <p class="text-gray-400">Aquí está el resumen de tus automatizaciones</p>
-                </div>
-
-                <!-- Stats Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-gradient-to-br from-primary/20 to-primary/5 backdrop-blur-lg rounded-2xl p-6 border border-primary/30">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="text-4xl"><i class="fas fa-cogs"></i></div>
-                            <div class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">+12%</div>
-                        </div>
-                        <div class="text-3xl font-bold mb-1" id="statsAutomations">0</div>
-                        <div class="text-gray-400 text-sm">Automatizaciones Activas</div>
-                    </div>
-
-                    <div class="bg-gradient-to-br from-secondary/20 to-secondary/5 backdrop-blur-lg rounded-2xl p-6 border border-secondary/30">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="text-4xl"><i class="fas fa-bolt"></i></div>
-                            <div class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">+28%</div>
-                        </div>
-                        <div class="text-3xl font-bold mb-1" id="statsExecutions">0</div>
-                        <div class="text-gray-400 text-sm">Ejecuciones Este Mes</div>
-                    </div>
-
-                    <div class="bg-gradient-to-br from-accent/20 to-accent/5 backdrop-blur-lg rounded-2xl p-6 border border-accent/30">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="text-4xl"><i class="fas fa-key"></i></div>
-                            <div class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">Seguro</div>
-                        </div>
-                        <div class="text-3xl font-bold mb-1" id="statsApiKeys">0</div>
-                        <div class="text-gray-400 text-sm">API Keys Guardadas</div>
-                    </div>
-
-                    <div class="bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 backdrop-blur-lg rounded-2xl p-6 border border-yellow-500/30">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="text-4xl"><i class="fas fa-clock"></i></div>
-                            <div class="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">Ahorro</div>
-                        </div>
-                        <div class="text-3xl font-bold mb-1">24h</div>
-                        <div class="text-gray-400 text-sm">Tiempo Ahorrado</div>
-                    </div>
-                </div>
-
-                <!-- Charts Row -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
-                        <h3 class="text-xl font-bold mb-4">Ejecuciones por Día</h3>
-                        <canvas id="executionsChart" height="200"></canvas>
-                    </div>
-
-                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
-                        <h3 class="text-xl font-bold mb-4">Distribución por Categoría</h3>
-                        <canvas id="categoryChart" height="200"></canvas>
-                    </div>
-                </div>
-
-                <!-- Recent Automations -->
-                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-bold">Automatizaciones Recientes</h3>
-                        <a href="/dashboard/automations" class="text-primary hover:underline">Ver todas →</a>
-                    </div>
-
-                    <div id="recentAutomations" class="space-y-4">
-                        <!-- Se llenará dinámicamente -->
-                    </div>
-                </div>
-            </div>
-        </main>
+<body class="bg-gradient-to-br from-purple-50 via-blue-50 to-purple-50">
+  
+  <!-- Loading State -->
+  <div id="loading" class="min-h-screen flex items-center justify-center">
+    <div class="text-center">
+      <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-purple-600 mx-auto"></div>
+      <p class="mt-4 text-gray-600 font-medium">Cargando dashboard...</p>
     </div>
-
-    <script>
-        // Check authentication
-        const token = localStorage.getItem('token')
-        const user = JSON.parse(localStorage.getItem('user') || '{}')
-
-        if (!token) {
-            window.location.href = '/login'
+  </div>
+  
+  <!-- Error State -->
+  <div id="error" class="hidden min-h-screen flex items-center justify-center">
+    <div class="text-center bg-white p-8 rounded-2xl shadow-xl max-w-md">
+      <div class="text-6xl mb-4">⚠️</div>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">Error</h2>
+      <p id="error-message" class="text-gray-600 mb-6"></p>
+      <button
+        onclick="loadDashboardData()"
+        class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold"
+      >
+        Reintentar
+      </button>
+    </div>
+  </div>
+  
+  <!-- Main Dashboard -->
+  <div id="dashboard" class="hidden min-h-screen">
+    
+    <!-- Header -->
+    <div class="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">🤖 AutomatizAI</h1>
+        </div>
+        <button
+          onclick="showConnectModal()"
+          class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 shadow-lg"
+        >
+          + Conectar Cuenta
+        </button>
+      </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 py-8">
+      
+      <!-- Welcome -->
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+          ¡Bienvenido de vuelta! 👋
+        </h2>
+        <p class="text-gray-600">
+          Gestiona tus automatizaciones de redes sociales
+        </p>
+      </div>
+      
+      <!-- Analytics Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        
+        <!-- Card 1 -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <p class="text-sm text-gray-500 mb-1">Automatizaciones Activas</p>
+              <p id="stat-automations" class="text-4xl font-bold text-purple-600">0</p>
+            </div>
+            <div class="text-4xl">🤖</div>
+          </div>
+          <div class="flex items-center text-sm">
+            <span class="text-green-600 font-medium">↑ +12%</span>
+            <span class="text-gray-500 ml-2">vs mes anterior</span>
+          </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <p class="text-sm text-gray-500 mb-1">Posts Publicados</p>
+              <p id="stat-posts" class="text-4xl font-bold text-blue-600">0</p>
+            </div>
+            <div class="text-4xl">📊</div>
+          </div>
+          <div class="flex items-center text-sm">
+            <span class="text-green-600 font-medium">↑ +28%</span>
+            <span class="text-gray-500 ml-2">este mes</span>
+          </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <p class="text-sm text-gray-500 mb-1">Cuentas Conectadas</p>
+              <p id="stat-accounts" class="text-4xl font-bold text-green-600">0</p>
+            </div>
+            <div class="text-4xl">🔗</div>
+          </div>
+          <div class="flex items-center text-sm">
+            <span class="text-gray-500">Listo para automatizar</span>
+          </div>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <p class="text-sm text-gray-500 mb-1">Tiempo Ahorrado</p>
+              <p id="stat-time" class="text-4xl font-bold text-orange-600">0h</p>
+            </div>
+            <div class="text-4xl">⏰</div>
+          </div>
+          <div class="flex items-center text-sm">
+            <span class="text-gray-500">en total</span>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Cuentas Conectadas -->
+      <div class="bg-white rounded-2xl p-8 shadow-lg">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold text-gray-900">Cuentas Conectadas</h3>
+          <button
+            onclick="showConnectModal()"
+            class="text-purple-600 hover:text-purple-700 font-semibold"
+          >
+            + Agregar
+          </button>
+        </div>
+        
+        <!-- Empty State -->
+        <div id="accounts-empty" class="hidden text-center py-16">
+          <div class="text-7xl mb-4">📱</div>
+          <h4 class="text-2xl font-bold text-gray-800 mb-3">
+            No tienes cuentas conectadas
+          </h4>
+          <p class="text-gray-600 mb-8 max-w-md mx-auto">
+            Conecta tu primera cuenta de Instagram o Facebook para comenzar a automatizar tus publicaciones
+          </p>
+          <button
+            onclick="showConnectModal()"
+            class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:scale-105 transition-all"
+          >
+            Conectar Primera Cuenta
+          </button>
+        </div>
+        
+        <!-- Accounts Grid -->
+        <div id="accounts-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Accounts will be rendered here -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- Modal Conectar Cuenta -->
+  <div id="connect-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-8 relative shadow-2xl">
+      
+      <button
+        onclick="hideConnectModal()"
+        class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 text-3xl font-bold"
+      >
+        ×
+      </button>
+      
+      <h2 class="text-3xl font-bold mb-2 text-gray-900">Conectar Cuenta</h2>
+      <p class="text-gray-600 mb-8">
+        Conecta tu cuenta de redes sociales para comenzar a automatizar
+      </p>
+      
+      <form id="connect-form" class="space-y-6">
+        
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Plataforma
+          </label>
+          <select
+            id="platform-select"
+            class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-4 focus:ring-purple-500 focus:border-purple-500 font-medium"
+          >
+            <option value="instagram">📸 Instagram</option>
+            <option value="facebook">👥 Facebook</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Access Token
+          </label>
+          <textarea
+            id="api-key-input"
+            placeholder="Pega aquí tu Access Token de Meta..."
+            rows="5"
+            required
+            class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-4 focus:ring-purple-500 focus:border-purple-500 resize-none font-mono text-sm"
+          ></textarea>
+          <p class="mt-3 text-xs text-gray-600">
+            💡 Obtén tu token desde
+            <a
+              href="https://developers.facebook.com/tools/explorer"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-purple-600 hover:underline font-semibold"
+            >
+              Meta Graph API Explorer
+            </a>
+          </p>
+        </div>
+        
+        <div id="modal-error" class="hidden bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-xl font-medium">
+          <!-- Error message -->
+        </div>
+        
+        <div class="flex gap-3 pt-4">
+          <button
+            type="button"
+            onclick="hideConnectModal()"
+            class="flex-1 px-6 py-4 border-2 border-gray-300 rounded-xl font-bold hover:bg-gray-50 transition-all"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            id="connect-submit"
+            class="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-bold hover:from-purple-700 hover:to-blue-700 shadow-lg hover:scale-105 transition-all"
+          >
+            Conectar
+          </button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // Configuration
+    const API_BASE = 'https://3000-ityg0nqhf71a8d8104awt-2e77fc33.sandbox.novita.ai'
+    const TEMP_USER_ID = 'demo-user-123'
+    
+    let accountsData = []
+    let analyticsData = null
+    
+    // Platform configurations
+    const platformColors = {
+      instagram: 'from-pink-500 to-purple-500',
+      facebook: 'from-blue-500 to-blue-600',
+      twitter: 'from-blue-400 to-blue-500',
+      linkedin: 'from-blue-600 to-blue-700'
+    }
+    
+    const platformIcons = {
+      instagram: '📸',
+      facebook: '👥',
+      twitter: '🐦',
+      linkedin: '💼'
+    }
+    
+    // Load dashboard data
+    async function loadDashboardData() {
+      showLoading()
+      
+      try {
+        // Obtener cuentas conectadas
+        const accountsRes = await fetch(\`\${API_BASE}/api/keys/list?userId=\${TEMP_USER_ID}\`)
+        if (accountsRes.ok) {
+          const accountsDataRes = await accountsRes.json()
+          accountsData = accountsDataRes.accounts || []
         }
-
-        // Set user info
-        document.getElementById('userName').textContent = user.fullName || 'Usuario'
-        document.getElementById('userPlan').textContent = 'Plan ' + (user.subscriptionPlan || 'free').toUpperCase()
-
-        // Load stats
-        async function loadStats() {
-            try {
-                const response = await fetch('/api/stats', {
-                    headers: {
-                        'X-User-ID': user.id
-                    }
-                })
-                const data = await response.json()
-                
-                document.getElementById('statsAutomations').textContent = data.automations || 0
-                document.getElementById('statsExecutions').textContent = (data.executions || 0).toLocaleString()
-                document.getElementById('statsApiKeys').textContent = data.apiKeys || 0
-            } catch (error) {
-                console.error('Error loading stats:', error)
+        
+        // Obtener analytics
+        const analyticsRes = await fetch(\`\${API_BASE}/api/analytics?userId=\${TEMP_USER_ID}\`)
+        if (analyticsRes.ok) {
+          analyticsData = await analyticsRes.json()
+        }
+        
+        renderDashboard()
+        
+      } catch (err) {
+        console.error('Error cargando datos:', err)
+        showError('Error al cargar datos del dashboard')
+      }
+    }
+    
+    // Render dashboard
+    function renderDashboard() {
+      hideLoading()
+      hideError()
+      
+      // Update stats
+      document.getElementById('stat-automations').textContent = analyticsData?.active_automations || 0
+      document.getElementById('stat-posts').textContent = analyticsData?.posts_published || 0
+      document.getElementById('stat-accounts').textContent = accountsData.length
+      document.getElementById('stat-time').textContent = (analyticsData?.time_saved_hours || 0) + 'h'
+      
+      // Render accounts
+      if (accountsData.length === 0) {
+        document.getElementById('accounts-empty').classList.remove('hidden')
+        document.getElementById('accounts-grid').classList.add('hidden')
+      } else {
+        document.getElementById('accounts-empty').classList.add('hidden')
+        document.getElementById('accounts-grid').classList.remove('hidden')
+        renderAccounts()
+      }
+      
+      document.getElementById('dashboard').classList.remove('hidden')
+    }
+    
+    // Render accounts
+    function renderAccounts() {
+      const grid = document.getElementById('accounts-grid')
+      grid.innerHTML = accountsData.map(account => \`
+        <div class="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200 rounded-2xl p-6 hover:shadow-2xl transition-all hover:scale-105">
+          
+          <div class="bg-gradient-to-r \${platformColors[account.platform]} text-white px-4 py-3 rounded-xl mb-4 flex items-center justify-between">
+            <span class="text-3xl">\${platformIcons[account.platform]}</span>
+            <span class="font-bold capitalize text-lg">\${account.platform}</span>
+          </div>
+          
+          <div class="flex items-center gap-4 mb-4">
+            \${account.account_avatar
+              ? \`<img src="\${account.account_avatar}" alt="\${account.account_name}" class="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg" />\`
+              : \`<div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-blue-400 flex items-center justify-center text-3xl shadow-lg">👤</div>\`
             }
+            
+            <div class="flex-1 min-w-0">
+              <h4 class="font-bold text-lg text-gray-900 truncate">
+                @\${account.account_name}
+              </h4>
+              <p class="text-sm text-gray-600">
+                \${(account.followers_count || 0).toLocaleString()} seguidores
+              </p>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold \${
+              account.status === 'active' 
+                ? 'bg-green-100 text-green-800' 
+                : 'bg-red-100 text-red-800'
+            }">
+              <span class="w-2 h-2 rounded-full bg-current mr-2 animate-pulse"></span>
+              \${account.status === 'active' ? 'Activa' : 'Inactiva'}
+            </span>
+          </div>
+          
+          <div class="flex gap-3">
+            <button
+              class="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-lg"
+            >
+              Crear Post
+            </button>
+            <button
+              onclick="deleteAccount('\${account.id}')"
+              class="px-4 py-3 border-2 border-red-300 text-red-600 hover:bg-red-50 rounded-xl font-bold transition-all hover:scale-105"
+            >
+              🗑️
+            </button>
+          </div>
+          
+        </div>
+      \`).join('')
+    }
+    
+    // Delete account
+    async function deleteAccount(accountId) {
+      if (!confirm('¿Seguro que quieres desconectar esta cuenta?')) return
+      
+      try {
+        const res = await fetch(\`\${API_BASE}/api/keys/\${accountId}\`, {
+          method: 'DELETE'
+        })
+        
+        if (res.ok) {
+          loadDashboardData()
+        } else {
+          alert('Error al eliminar')
         }
-
-        // Load recent automations
-        async function loadRecentAutomations() {
-            try {
-                const response = await fetch('/api/automations', {
-                    headers: {
-                        'X-User-ID': user.id
-                    }
-                })
-                const data = await response.json()
-                
-                const container = document.getElementById('recentAutomations')
-                
-                if (data.automations && data.automations.length > 0) {
-                    container.innerHTML = data.automations.slice(0, 5).map(auto => \`
-                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-lg hover:bg-white/10 transition">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-cog text-primary"></i>
-                                </div>
-                                <div>
-                                    <div class="font-semibold">\${auto.name}</div>
-                                    <div class="text-sm text-gray-400">\${auto.description || 'Sin descripción'}</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span class="text-sm bg-green-500/20 text-green-400 px-3 py-1 rounded-full">
-                                    <i class="fas fa-check-circle mr-1"></i>\${auto.status}
-                                </span>
-                                <button class="text-gray-400 hover:text-white">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                            </div>
-                        </div>
-                    \`).join('')
-                } else {
-                    container.innerHTML = \`
-                        <div class="text-center py-12 text-gray-400">
-                            <i class="fas fa-robot text-5xl mb-4 opacity-50"></i>
-                            <p class="mb-4">Aún no tienes automatizaciones</p>
-                            <a href="/dashboard/templates" class="inline-block bg-primary px-6 py-2 rounded-lg hover:bg-primary/80 transition text-white">
-                                Explorar Templates
-                            </a>
-                        </div>
-                    \`
-                }
-            } catch (error) {
-                console.error('Error loading automations:', error)
-            }
+      } catch (err) {
+        alert('Error al eliminar')
+      }
+    }
+    
+    // Modal functions
+    function showConnectModal() {
+      document.getElementById('connect-modal').classList.remove('hidden')
+      document.getElementById('api-key-input').value = ''
+      document.getElementById('modal-error').classList.add('hidden')
+    }
+    
+    function hideConnectModal() {
+      document.getElementById('connect-modal').classList.add('hidden')
+    }
+    
+    // Submit connect form
+    document.getElementById('connect-form').addEventListener('submit', async (e) => {
+      e.preventDefault()
+      
+      const platform = document.getElementById('platform-select').value
+      const apiKey = document.getElementById('api-key-input').value
+      const submitBtn = document.getElementById('connect-submit')
+      const errorDiv = document.getElementById('modal-error')
+      
+      errorDiv.classList.add('hidden')
+      submitBtn.disabled = true
+      submitBtn.textContent = 'Conectando...'
+      
+      try {
+        // 1. Validar
+        const validateRes = await fetch(\`\${API_BASE}/api/keys/validate\`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ platform, apiKey })
+        })
+        
+        if (!validateRes.ok) {
+          const errorData = await validateRes.json()
+          throw new Error(errorData.error || 'API Key inválida')
         }
-
-        // Initialize charts
-        function initCharts() {
-            // Executions Chart
-            const ctx1 = document.getElementById('executionsChart').getContext('2d')
-            new Chart(ctx1, {
-                type: 'line',
-                data: {
-                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-                    datasets: [{
-                        label: 'Ejecuciones',
-                        data: [120, 190, 150, 280, 200, 150, 180],
-                        borderColor: '#6366f1',
-                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: { 
-                            beginAtZero: true,
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                            ticks: { color: '#9ca3af' }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: '#9ca3af' }
-                        }
-                    }
-                }
-            })
-
-            // Category Chart
-            const ctx2 = document.getElementById('categoryChart').getContext('2d')
-            new Chart(ctx2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Marketing', 'Comunicación', 'Finanzas', 'Productividad'],
-                    datasets: [{
-                        data: [30, 25, 20, 25],
-                        backgroundColor: [
-                            '#6366f1',
-                            '#8b5cf6',
-                            '#ec4899',
-                            '#f59e0b'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: { color: '#9ca3af' }
-                        }
-                    }
-                }
-            })
+        
+        const { accountInfo } = await validateRes.json()
+        
+        // 2. Guardar
+        const saveRes = await fetch(\`\${API_BASE}/api/keys/save\`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            platform,
+            apiKey,
+            accountInfo,
+            userId: TEMP_USER_ID
+          })
+        })
+        
+        if (!saveRes.ok) {
+          throw new Error('Error al guardar la cuenta')
         }
-
-        function logout() {
-            localStorage.removeItem('token')
-            localStorage.removeItem('user')
-            window.location.href = '/login'
-        }
-
-        // Load data
-        loadStats()
-        loadRecentAutomations()
-        initCharts()
-    </script>
+        
+        hideConnectModal()
+        loadDashboardData()
+        
+      } catch (err) {
+        errorDiv.textContent = '⚠️ ' + err.message
+        errorDiv.classList.remove('hidden')
+      } finally {
+        submitBtn.disabled = false
+        submitBtn.textContent = 'Conectar'
+      }
+    })
+    
+    // UI helpers
+    function showLoading() {
+      document.getElementById('loading').classList.remove('hidden')
+      document.getElementById('error').classList.add('hidden')
+      document.getElementById('dashboard').classList.add('hidden')
+    }
+    
+    function hideLoading() {
+      document.getElementById('loading').classList.add('hidden')
+    }
+    
+    function showError(message) {
+      document.getElementById('error-message').textContent = message
+      document.getElementById('error').classList.remove('hidden')
+      document.getElementById('loading').classList.add('hidden')
+      document.getElementById('dashboard').classList.add('hidden')
+    }
+    
+    function hideError() {
+      document.getElementById('error').classList.add('hidden')
+    }
+    
+    // Initialize on load
+    loadDashboardData()
+  </script>
 </body>
 </html>
-`
+`;
