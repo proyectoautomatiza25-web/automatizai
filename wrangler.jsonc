@@ -5,12 +5,14 @@
   "pages_build_output_dir": "./dist",
   "compatibility_flags": [
     "nodejs_compat"
-  ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "automatizai-production",
-      "database_id": "PLACEHOLDER_REPLACE_AFTER_D1_CREATE"
-    }
   ]
+  // D1 Database deshabilitado temporalmente para deployment inicial
+  // Descomentar después de crear la base de datos en Cloudflare
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "automatizai-production",
+  //     "database_id": "PLACEHOLDER_REPLACE_AFTER_D1_CREATE"
+  //   }
+  // ]
 }
