@@ -79,7 +79,7 @@ const PLANS = {
 }
 
 // POST /api/mercadopago/create-subscription
-// Crear preferencia de pago (checkout simple, no suscripción recurrente automática)
+// Crear SUSCRIPCIÓN RECURRENTE AUTOMÁTICA (cobra cada mes automáticamente)
 mercadopagoRoutes.post('/create-subscription', async (c) => {
   try {
     const { planId, userEmail } = await c.req.json()
@@ -93,60 +93,89 @@ mercadopagoRoutes.post('/create-subscription', async (c) => {
       return c.json({ error: 'Plan no válido' }, 400)
     }
 
-    // Crear preferencia de pago simple
-    const preferenceData = {
-      items: [
-        {
-          title: `Plan ${plan.name} - AutomatizA SUR (Mensual)`,
-          description: `Suscripción mensual - Plan ${plan.name}`,
-          quantity: 1,
-          unit_price: plan.price,
-          currency_id: plan.currency
-        }
-      ],
-      payer: {
-        email: userEmail
+    console.log(`🔄 Creando suscripción automática: ${userEmail} - Plan: ${plan.name}`)
+
+    // PASO 1: Crear plan de suscripción (preapproval_plan)
+    const planData = {
+      reason: `Plan ${plan.name} - AutomatizA SUR`,
+      auto_recurring: {
+        frequency: plan.frequency,
+        frequency_type: plan.frequency_type,
+        transaction_amount: plan.price,
+        currency_id: plan.currency
       },
-      back_urls: {
-        success: 'https://3000-ityg0nqhf71a8d8104awt-2e77fc33.sandbox.novita.ai/payment-success',
-        failure: 'https://3000-ityg0nqhf71a8d8104awt-2e77fc33.sandbox.novita.ai/payment-failure',
-        pending: 'https://3000-ityg0nqhf71a8d8104awt-2e77fc33.sandbox.novita.ai/payment-pending'
-      },
-      auto_return: 'approved',
-      external_reference: `${planId}_${Date.now()}_${userEmail}`,
-      statement_descriptor: 'AUTOMATIZASUR'
+      back_url: 'https://automatizasur.cl/subscription-success',
+      payment_methods_allowed: {
+        payment_types: [{ id: 'credit_card' }, { id: 'debit_card' }],
+        payment_methods: [
+          { id: 'visa' },
+          { id: 'master' },
+          { id: 'amex' }
+        ]
+      }
     }
 
-    console.log('📤 Creando preferencia MP:', JSON.stringify(preferenceData, null, 2))
+    console.log('📤 Creando plan de suscripción:', JSON.stringify(planData, null, 2))
 
-    const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
+    const planResponse = await fetch('https://api.mercadopago.com/preapproval_plan', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${MP_ACCESS_TOKEN}`
       },
-      body: JSON.stringify(preferenceData)
+      body: JSON.stringify(planData)
     })
 
-    console.log('📥 Respuesta MP status:', response.status)
-
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error('❌ Error MP:', errorText)
+    if (!planResponse.ok) {
+      const errorText = await planResponse.text()
+      console.error('❌ Error creando plan:', errorText)
       return c.json({ 
-        error: 'Error al crear preferencia de pago',
+        error: 'Error al crear plan de suscripción',
         details: errorText
       }, 500)
     }
 
-    const preference = await response.json()
-    console.log('✅ Preferencia creada:', preference.id)
+    const createdPlan = await planResponse.json()
+    console.log('✅ Plan creado:', createdPlan.id)
+
+    // PASO 2: Crear suscripción del usuario (preapproval)
+    const subscriptionData = {
+      preapproval_plan_id: createdPlan.id,
+      reason: `Suscripción ${plan.name} - AutomatizA SUR`,
+      external_reference: `${planId}_${Date.now()}_${userEmail}`,
+      payer_email: userEmail,
+      back_url: 'https://automatizasur.cl/subscription-success',
+      status: 'pending'
+    }
+
+    console.log('📤 Creando suscripción:', JSON.stringify(subscriptionData, null, 2))
+
+    const subResponse = await fetch('https://api.mercadopago.com/preapproval', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${MP_ACCESS_TOKEN}`
+      },
+      body: JSON.stringify(subscriptionData)
+    })
+
+    if (!subResponse.ok) {
+      const errorText = await subResponse.text()
+      console.error('❌ Error creando suscripción:', errorText)
+      return c.json({ 
+        error: 'Error al crear suscripción',
+        details: errorText
+      }, 500)
+    }
+
+    const subscription = await subResponse.json()
+    console.log('✅ Suscripción creada:', subscription.id)
 
     return c.json({
       success: true,
-      preferenceId: preference.id,
-      initPoint: preference.init_point,
-      sandboxInitPoint: preference.sandbox_init_point || preference.init_point
+      subscriptionId: subscription.id,
+      initPoint: subscription.init_point,
+      sandboxInitPoint: subscription.sandbox_init_point || subscription.init_point
     })
 
   } catch (error) {
