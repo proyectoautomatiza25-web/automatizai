@@ -7,13 +7,13 @@ const mercadopagoRoutes = new Hono()
 const MP_ACCESS_TOKEN = 'APP_USR-2953236650411033-122523-66fce79545ad006d0f2128c64885389c-25579762'
 const MP_PUBLIC_KEY = 'APP_USR-aba28b23-58d8-436e-b1d7-410e5070784f'
 
-// Planes disponibles (para AutomatizA SUR)
+// Planes disponibles (para AutomatizA SUR) - Pesos Chilenos
 const PLANS = {
   starter: {
     id: 'starter',
     name: 'Starter',
-    price: 49,
-    currency: 'USD',
+    price: 49990,
+    currency: 'CLP',
     frequency: 1,
     frequency_type: 'months',
     features: [
@@ -27,8 +27,8 @@ const PLANS = {
   growth: {
     id: 'growth',
     name: 'Growth',
-    price: 89,
-    currency: 'USD',
+    price: 89990,
+    currency: 'CLP',
     frequency: 1,
     frequency_type: 'months',
     featured: true,
@@ -45,8 +45,8 @@ const PLANS = {
   pro: {
     id: 'pro',
     name: 'Pro',
-    price: 130,
-    currency: 'USD',
+    price: 129990,
+    currency: 'CLP',
     frequency: 1,
     frequency_type: 'months',
     features: [
@@ -62,8 +62,8 @@ const PLANS = {
   enterprise: {
     id: 'enterprise',
     name: 'Enterprise',
-    price: 190,
-    currency: 'USD',
+    price: 189990,
+    currency: 'CLP',
     frequency: 1,
     frequency_type: 'months',
     features: [
@@ -79,7 +79,7 @@ const PLANS = {
 }
 
 // POST /api/mercadopago/create-subscription
-// Crear suscripción recurrente para un plan
+// Crear preferencia de pago (checkout simple, no suscripción recurrente automática)
 mercadopagoRoutes.post('/create-subscription', async (c) => {
   try {
     const { planId, userEmail } = await c.req.json()
@@ -93,75 +93,64 @@ mercadopagoRoutes.post('/create-subscription', async (c) => {
       return c.json({ error: 'Plan no válido' }, 400)
     }
 
-    // Paso 1: Crear plan de suscripción en MP (si no existe)
-    const planData = {
-      reason: `Plan ${plan.name} - AutomatizA SUR`,
-      auto_recurring: {
-        frequency: plan.frequency,
-        frequency_type: plan.frequency_type,
-        transaction_amount: plan.price,
-        currency_id: plan.currency
+    // Crear preferencia de pago simple
+    const preferenceData = {
+      items: [
+        {
+          title: `Plan ${plan.name} - AutomatizA SUR (Mensual)`,
+          description: `Suscripción mensual - Plan ${plan.name}`,
+          quantity: 1,
+          unit_price: plan.price,
+          currency_id: plan.currency
+        }
+      ],
+      payer: {
+        email: userEmail
       },
-      back_url: 'https://3000-ityg0nqhf71a8d8104awt-2e77fc33.sandbox.novita.ai/payment-success',
-      payment_methods_allowed: {
-        payment_types: [{ id: 'credit_card' }],
-        payment_methods: [{ id: 'visa' }, { id: 'master' }]
-      }
+      back_urls: {
+        success: 'https://3000-ityg0nqhf71a8d8104awt-2e77fc33.sandbox.novita.ai/payment-success',
+        failure: 'https://3000-ityg0nqhf71a8d8104awt-2e77fc33.sandbox.novita.ai/payment-failure',
+        pending: 'https://3000-ityg0nqhf71a8d8104awt-2e77fc33.sandbox.novita.ai/payment-pending'
+      },
+      auto_return: 'approved',
+      external_reference: `${planId}_${Date.now()}_${userEmail}`,
+      statement_descriptor: 'AUTOMATIZASUR'
     }
 
-    const planResponse = await fetch('https://api.mercadopago.com/preapproval_plan', {
+    console.log('📤 Creando preferencia MP:', JSON.stringify(preferenceData, null, 2))
+
+    const response = await fetch('https://api.mercadopago.com/checkout/preferences', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${MP_ACCESS_TOKEN}`
       },
-      body: JSON.stringify(planData)
+      body: JSON.stringify(preferenceData)
     })
 
-    if (!planResponse.ok) {
-      const error = await planResponse.text()
-      console.error('Error creando plan MP:', error)
-      return c.json({ error: 'Error al crear plan de suscripción' }, 500)
+    console.log('📥 Respuesta MP status:', response.status)
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('❌ Error MP:', errorText)
+      return c.json({ 
+        error: 'Error al crear preferencia de pago',
+        details: errorText
+      }, 500)
     }
 
-    const mpPlan = await planResponse.json()
-
-    // Paso 2: Crear preferencia de suscripción para el usuario
-    const subscriptionData = {
-      preapproval_plan_id: mpPlan.id,
-      reason: `Suscripción ${plan.name} - AutomatizA SUR`,
-      external_reference: `${planId}_${Date.now()}`,
-      payer_email: userEmail,
-      back_url: 'https://3000-ityg0nqhf71a8d8104awt-2e77fc33.sandbox.novita.ai/payment-success',
-      status: 'pending'
-    }
-
-    const subscriptionResponse = await fetch('https://api.mercadopago.com/preapproval', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${MP_ACCESS_TOKEN}`
-      },
-      body: JSON.stringify(subscriptionData)
-    })
-
-    if (!subscriptionResponse.ok) {
-      const error = await subscriptionResponse.text()
-      console.error('Error creando suscripción MP:', error)
-      return c.json({ error: 'Error al crear suscripción' }, 500)
-    }
-
-    const subscription = await subscriptionResponse.json()
+    const preference = await response.json()
+    console.log('✅ Preferencia creada:', preference.id)
 
     return c.json({
       success: true,
-      subscriptionId: subscription.id,
-      initPoint: subscription.init_point,
-      sandboxInitPoint: subscription.sandbox_init_point || subscription.init_point
+      preferenceId: preference.id,
+      initPoint: preference.init_point,
+      sandboxInitPoint: preference.sandbox_init_point || preference.init_point
     })
 
   } catch (error) {
-    console.error('Error en create-subscription:', error)
+    console.error('❌ Error en create-subscription:', error)
     return c.json({ error: 'Error interno del servidor' }, 500)
   }
 })

@@ -143,6 +143,9 @@ export const professionalLandingHTML = `
         <div style="font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.5px;">
           AutomatizA SUR
         </div>
+        <a href="https://instagram.com/automatiza.sur" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; margin-left: 1rem; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram @automatiza.sur" style="width: 35px; height: 35px; border-radius: 8px;" />
+        </a>
       </div>
       <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
@@ -388,7 +391,7 @@ export const professionalLandingHTML = `
         <div class="pricing-card fade-in-up">
           <h3>Starter</h3>
           <div style="margin: 1.5rem 0;">
-            <span class="plan-price" data-monthly="49" data-annual="470">$49</span>
+            <span class="plan-price" style="font-size: 2rem;">$49.990</span>
             <span style="color: var(--gray-400);">/mes</span>
           </div>
           <p style="color: var(--gray-400); margin-bottom: 2rem;">Para emprendedores y pequeñas empresas</p>
@@ -408,7 +411,7 @@ export const professionalLandingHTML = `
           <div class="pricing-badge">MÁS POPULAR</div>
           <h3>Growth</h3>
           <div style="margin: 1.5rem 0;">
-            <span class="plan-price" data-monthly="89" data-annual="854">$89</span>
+            <span class="plan-price" style="font-size: 2rem;">$89.990</span>
             <span style="color: var(--gray-400);">/mes</span>
           </div>
           <p style="color: var(--gray-400); margin-bottom: 2rem;">Para empresas en crecimiento</p>
@@ -429,7 +432,7 @@ export const professionalLandingHTML = `
         <div class="pricing-card fade-in-up">
           <h3>Pro</h3>
           <div style="margin: 1.5rem 0;">
-            <span class="plan-price" data-monthly="130" data-annual="1248">$130</span>
+            <span class="plan-price" style="font-size: 2rem;">$129.990</span>
             <span style="color: var(--gray-400);">/mes</span>
           </div>
           <p style="color: var(--gray-400); margin-bottom: 2rem;">Para equipos profesionales</p>
@@ -450,7 +453,7 @@ export const professionalLandingHTML = `
         <div class="pricing-card fade-in-up">
           <h3>Enterprise</h3>
           <div style="margin: 1.5rem 0;">
-            <span class="plan-price" data-monthly="190" data-annual="1824">$190</span>
+            <span class="plan-price" style="font-size: 2rem;">$189.990</span>
             <span style="color: var(--gray-400);">/mes</span>
           </div>
           <p style="color: var(--gray-400); margin-bottom: 2rem;">Para grandes organizaciones</p>
