@@ -1,9 +1,9 @@
 // ==============================================
-// CHATBOT PERSUASIVO - AutomatizAI
+// CHATBOT PERSUASIVO - AutomatizA SUR
 // Bot gratuito estilo humano para convertir visitantes
 // ==============================================
 
-class AutomatizAIChatbot {
+class AutomatizA SURChatbot {
   constructor() {
     this.isOpen = false
     this.messages = []
@@ -19,7 +19,7 @@ class AutomatizAIChatbot {
     // Mensaje de bienvenida después de 3 segundos
     setTimeout(() => {
       this.addBotMessage(
-        '👋 ¡Hola! Soy el asistente virtual de AutomatizAI. ¿Te gustaría saber cómo podemos automatizar tu negocio?',
+        '👋 ¡Hola! Soy el asistente virtual de AutomatizA SUR. ¿Te gustaría saber cómo podemos automatizar tu negocio?',
         ['Sí, cuéntame más', 'Ver precios', 'Tengo una pregunta']
       )
       this.showNotification()
@@ -594,5 +594,5 @@ class AutomatizAIChatbot {
 // Initialize chatbot
 let chatbot
 document.addEventListener('DOMContentLoaded', () => {
-  chatbot = new AutomatizAIChatbot()
+  chatbot = new AutomatizA SURChatbot()
 })

@@ -5,7 +5,7 @@ export const professionalLandingHTML = `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutomatizAI - Agencia de Automatización Empresarial</title>
+  <title>AutomatizA SUR - Agencia de Automatización Empresarial</title>
   <meta name="description" content="Agencia especializada en automatización empresarial con n8n, Make, WhatsApp, Instagram y Gmail. Optimiza tus procesos y ahorra tiempo.">
   
   <!-- Fonts & Icons -->
@@ -16,15 +16,47 @@ export const professionalLandingHTML = `
   <link href="/static/landing-pro.css" rel="stylesheet">
   
   <style>
+    /* Colores naranjas y rosados */
+    :root {
+      --primary: #ff6b35;
+      --secondary: #ff006e;
+      --accent: #ff7f50;
+      --dark: #0a0a0a;
+      --gray-100: #f3f4f6;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .logo-image {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
+    
     .logo-text {
       font-size: 1.75rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       letter-spacing: -0.5px;
     }
+    
+    /* Override colores en toda la página */
+    .navbar { background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 0, 110, 0.05) 100%); }
+    .btn-primary { background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3); }
+    .gradient-text { background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-cta { background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); }
+    .pricing-card.featured { border: 2px solid #ff6b35; background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 0, 110, 0.05) 100%); }
+    .pricing-badge { background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); }
   </style>
 </head>
 <body>
@@ -33,7 +65,10 @@ export const professionalLandingHTML = `
   <!-- Navigation -->
   <nav class="navbar">
     <div class="nav-container">
-      <div class="logo-text">AutomatizAI</div>
+      <div class="logo-container">
+        <img src="https://www.genspark.ai/api/files/s/U8v18KZv?cache_control=3600" alt="AutomatizA SUR Logo" class="logo-image" />
+        <div class="logo-text">AutomatizA SUR</div>
+      </div>
       <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#herramientas">Herramientas</a></li>
@@ -93,35 +128,35 @@ export const professionalLandingHTML = `
         
         <!-- n8n -->
         <div class="fade-in-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s;">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">🔗</div>
+          <img src="https://sspark.genspark.ai/cfimages?u1=lUl0bZp0rlPhsvHLEpjIFIoVKzRHg0nEWW9cQg6znhRNfi7uHnPGuvX1Qckqg1MrV3enA1cd8VM36ovESqK0eVthNTN%2B7IoAfwP2iV4JkAxn5%2FM55fDM5v9Y3qepC3sEyLouMOYPKnSs&u2=1XdMxOua9icT10hx&width=400" alt="n8n" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">n8n</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Automatización Open Source</p>
         </div>
 
         <!-- Make -->
         <div class="fade-in-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s;">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">⚙️</div>
+          <img src="https://sspark.genspark.ai/cfimages?u1=cMtgoIESpjOmnlaP%2B577Qi%2BizrphEy7o5VmqBe%2F%2BiRMQ4gswr1oWdwwDAxdVGvDwIHN4MahBeCYfV0w%2FWnewPrjb8iAeUJAkpO0DRNG3f8HFpknlnrEmQNgCQwso%2ByKA1rijPVcBQ1D%2F&u2=mxj%2FIVe84FdX06nK&width=400" alt="Make" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Make</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Integración Avanzada</p>
         </div>
 
         <!-- WhatsApp -->
         <div class="fade-in-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s;">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">💬</div>
+          <img src="https://sspark.genspark.ai/cfimages?u1=kba8GrGToLScqNcV7CGEHoM560JHSZyqumQj2owLoRgPOitAb%2F9KHt0Fm2j72qRm709xepeLXLIBJHzIFftHu8m8zKHkoyShuD9jEP2A9SJAwppAG5dpnpF0RsvqDrt9eQ%3D%3D&u2=qdBC34%2FMiXsKmSPp&width=400" alt="WhatsApp" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">WhatsApp</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Mensajería Automatizada</p>
         </div>
 
         <!-- Instagram -->
         <div class="fade-in-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s;">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">📸</div>
+          <img src="https://sspark.genspark.ai/cfimages?u1=THS9XBPKzQHP5ZwweZtvtaceowgsdm%2FAXqzj%2BMzBZwYtpvDKuzG8lhmayLRL5L6yntiXYg7H42rG50JZt4p%2BhSaJtJTubMxuhznoD5NB9oUwHFI4UB0%3D&u2=hr9RRc%2Bj4Hj0Z4Aq&width=400" alt="Instagram" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Instagram</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Gestión de Redes</p>
         </div>
 
         <!-- Gmail -->
         <div class="fade-in-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s;">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">📧</div>
+          <img src="https://sspark.genspark.ai/cfimages?u1=jdpaPZ%2FxQ81%2B2KLwdqRbNMc6qmalyA7pvt4qCTlBG9E8uAVKEpiW77IGjUT7%2BrHEav71YgEs%2BeVxO8FEmv%2BHj3wEgLdjXbYfRVGezg%3D%3D&u2=%2BMp4o6GufCtZk1ea&width=400" alt="Gmail" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Gmail</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Email Automation</p>
         </div>
@@ -379,10 +414,6 @@ export const professionalLandingHTML = `
           <i class="fas fa-paper-plane"></i> Enviar Mensaje
         </button>
 
-        <p style="text-align: center; color: var(--gray-400); margin-top: 1rem; font-size: 0.9rem;">
-          También puedes escribirnos a: <a href="mailto:proyecto.automatiza.cl" style="color: var(--primary); text-decoration: none;">proyecto.automatiza.cl</a>
-        </p>
-
       </form>
     </div>
   </section>
@@ -392,7 +423,7 @@ export const professionalLandingHTML = `
     <div class="footer-container">
       
       <div class="footer-section">
-        <h4 class="logo-text" style="margin-bottom: 1.5rem;">AutomatizAI</h4>
+        <h4 class="logo-text" style="margin-bottom: 1.5rem;">AutomatizA SUR</h4>
         <p style="color: var(--gray-400); margin-bottom: 1.5rem; line-height: 1.8;">
           Agencia especializada en automatización empresarial. Optimiza tus procesos y enfócate en crecer.
         </p>
@@ -428,16 +459,16 @@ export const professionalLandingHTML = `
       <div class="footer-section">
         <h4>Contacto</h4>
         <ul>
-          <li><a href="mailto:proyecto.automatiza.cl">proyecto.automatiza.cl</a></li>
-          <li><a href="#contacto">Formulario</a></li>
-          <li><a href="#precios">Planes</a></li>
+          <li><a href="#contacto">Formulario de Contacto</a></li>
+          <li><a href="#precios">Ver Planes</a></li>
+          <li><a href="#servicios">Nuestros Servicios</a></li>
         </ul>
       </div>
 
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2024 AutomatizAI. Todos los derechos reservados.</p>
+      <p>&copy; 2024 AutomatizA SUR. Todos los derechos reservados.</p>
       <p style="margin-top: 0.5rem; font-size: 0.85rem;">
         Agencia de Automatización Empresarial
       </p>
@@ -499,4 +530,6 @@ export const professionalLandingHTML = `
   </script>
 </body>
 </html>
+`;
+`;
 `;
