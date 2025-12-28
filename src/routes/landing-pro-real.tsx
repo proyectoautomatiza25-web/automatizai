@@ -129,7 +129,9 @@ export const professionalLandingHTML = `
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo-container">
-        <img src="https://www.genspark.ai/api/files/s/pMuuxv3T" alt="AutomatizA SUR Logo" style="height: 50px; width: auto; object-fit: contain;" />
+        <div style="font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.5px;">
+          AutomatizA SUR
+        </div>
       </div>
       <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
@@ -239,7 +241,7 @@ export const professionalLandingHTML = `
         
         <!-- Excel -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%932025%29.svg" alt="Excel" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <img src="https://sspark.genspark.ai/cfimages?u1=JQ41JmYa48ubFNU4jthPdVLYGmNgxukl81lEGjEzA2VUqywC6yKYejhe31Je6T6f2UWKZzpk6iBCFxYxN5yfnsxwsvr4UwixbrMOy2eHRjVT3ZnE4sLEmgQM9tBe5N1e9E8UF8jmKf%2FbPjBpCzmQXBlUu3vDZPxYiuv2fb8vthFbhB6e6pjt2mFXPM%2Fvpz07qcxsNmtX6w1mBoqGWlfZ40vV57k9t9v7dQSqKKR5FyNapJhS8O9s4bG%2F&u2=ie8RtBKkuGWlKuKG&width=400" alt="Excel" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Excel</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Hojas de Cálculo</p>
         </div>
@@ -366,11 +368,8 @@ export const professionalLandingHTML = `
   <section class="pricing-section" id="precios">
     <div style="max-width: 1280px; margin: 0 auto;">
       <h2 class="section-title fade-in-up">Planes de <span class="gradient-text">Suscripción</span></h2>
-      <p style="text-align: center; color: var(--gray-300); margin-bottom: 1rem; font-size: 1.1rem;">
+      <p style="text-align: center; color: var(--gray-300); margin-bottom: 3rem; font-size: 1.1rem;">
         Elige el plan que mejor se adapte a tu negocio
-      </p>
-      <p style="text-align: center; color: var(--accent); margin-bottom: 3rem; font-weight: 600;">
-        🎁 14 días de prueba gratis • Cancela cuando quieras
       </p>
       
       <div class="pricing-grid">
@@ -661,19 +660,18 @@ export const professionalLandingHTML = `
             return
           }
           
-          // Crear preferencia de pago
-          const response = await fetch('/api/mercadopago/create-preference', {
+          // Crear suscripción recurrente
+          const response = await fetch('/api/mercadopago/create-subscription', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               planId: planId,
-              userId: 'guest_' + Date.now(), // En producción usar ID real
               userEmail: userEmail
             })
           })
           
           if (!response.ok) {
-            throw new Error('Error al crear preferencia')
+            throw new Error('Error al crear suscripción')
           }
           
           const data = await response.json()
