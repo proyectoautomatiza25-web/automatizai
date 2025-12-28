@@ -186,16 +186,19 @@ app.post('/api/contact', async (c) => {
       email,
       phone,
       message,
-      to: to || 'proyecto.automatiza.cl',
+      to: to || 'proyecto.automatiza25@gmail.com',
       timestamp: new Date().toISOString()
     })
     
-    // Guardar en base de datos
-    const { DB } = c.env
-    await DB.prepare(`
-      INSERT INTO contacts (name, email, phone, message, created_at)
-      VALUES (?, ?, ?, ?, datetime('now'))
-    `).bind(name, email, phone || null, message).run()
+    // TODO: Guardar en base de datos cuando D1 esté habilitada
+    // const { DB } = c.env
+    // await DB.prepare(`
+    //   INSERT INTO contacts (name, email, phone, message, created_at)
+    //   VALUES (?, ?, ?, ?, datetime('now'))
+    // `).bind(name, email, phone || null, message).run()
+    
+    // Por ahora, solo logear el mensaje (sin DB)
+    // Los mensajes se mostrarán en los logs de Cloudflare Pages
     
     return c.json({ 
       success: true, 
