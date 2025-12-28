@@ -129,8 +129,7 @@ export const professionalLandingHTML = `
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo-container">
-        <img src="https://www.genspark.ai/api/files/s/Vk0v61iZ" alt="AutomatizA SUR Logo" class="logo-image" />
-        <div class="logo-text">AutomatizA SUR</div>
+        <img src="https://www.genspark.ai/api/files/s/pMuuxv3T" alt="AutomatizA SUR Logo" style="height: 50px; width: auto; object-fit: contain;" />
       </div>
       <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
@@ -240,14 +239,14 @@ export const professionalLandingHTML = `
         
         <!-- Excel -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <div style="width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">📊</div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%932025%29.svg" alt="Excel" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Excel</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Hojas de Cálculo</p>
         </div>
         
         <!-- Google Sheets -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <div style="width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">📈</div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Google_Sheets_2020_Logo.svg" alt="Google Sheets" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Sheets</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Hojas Google</p>
         </div>
@@ -261,7 +260,7 @@ export const professionalLandingHTML = `
         
         <!-- Slack -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <div style="width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">💬</div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg" alt="Slack" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Slack</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Comunicación</p>
         </div>
@@ -390,9 +389,9 @@ export const professionalLandingHTML = `
             <li>Integraciones básicas</li>
             <li>Documentación completa</li>
           </ul>
-          <a href="#registro" class="btn-primary" style="width: 100%; margin-top: 2rem; text-align: center;">
-            Comenzar
-          </a>
+          <button class="btn-primary btn-mercadopago" data-plan="starter" style="width: 100%; margin-top: 2rem; border: none; cursor: pointer;">
+            💳 Contratar Ahora
+          </button>
         </div>
 
         <div class="pricing-card featured fade-in-up">
@@ -412,9 +411,9 @@ export const professionalLandingHTML = `
             <li>API access</li>
             <li>Reportes avanzados</li>
           </ul>
-          <a href="#registro" class="btn-primary" style="width: 100%; margin-top: 2rem; text-align: center;">
-            Comenzar
-          </a>
+          <button class="btn-primary btn-mercadopago" data-plan="growth" style="width: 100%; margin-top: 2rem; border: none; cursor: pointer;">
+            💳 Contratar Ahora
+          </button>
         </div>
 
         <div class="pricing-card fade-in-up">
@@ -433,9 +432,9 @@ export const professionalLandingHTML = `
             <li>Capacitación incluida</li>
             <li>White-label disponible</li>
           </ul>
-          <a href="#registro" class="btn-primary" style="width: 100%; margin-top: 2rem; text-align: center;">
-            Comenzar
-          </a>
+          <button class="btn-primary btn-mercadopago" data-plan="pro" style="width: 100%; margin-top: 2rem; border: none; cursor: pointer;">
+            💳 Contratar Ahora
+          </button>
         </div>
 
         <div class="pricing-card fade-in-up">
@@ -638,6 +637,57 @@ export const professionalLandingHTML = `
         submitBtn.disabled = false
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensaje'
       }
+    })
+
+    // ========================================
+    // MERCADO PAGO INTEGRATION
+    // ========================================
+    document.querySelectorAll('.btn-mercadopago').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        const planId = this.getAttribute('data-plan')
+        const originalText = this.innerHTML
+        
+        // Mostrar loading
+        this.disabled = true
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...'
+        
+        try {
+          // Obtener email del usuario (o pedirlo)
+          let userEmail = prompt('Ingresa tu email para continuar con el pago:', '')
+          if (!userEmail || !userEmail.includes('@')) {
+            alert('⚠️ Email inválido. Por favor, intenta de nuevo.')
+            this.disabled = false
+            this.innerHTML = originalText
+            return
+          }
+          
+          // Crear preferencia de pago
+          const response = await fetch('/api/mercadopago/create-preference', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              planId: planId,
+              userId: 'guest_' + Date.now(), // En producción usar ID real
+              userEmail: userEmail
+            })
+          })
+          
+          if (!response.ok) {
+            throw new Error('Error al crear preferencia')
+          }
+          
+          const data = await response.json()
+          
+          // Redirigir a Mercado Pago (usar sandbox en desarrollo)
+          window.location.href = data.sandboxInitPoint || data.initPoint
+          
+        } catch (error) {
+          console.error('Error:', error)
+          alert('❌ Error al procesar el pago. Por favor, intenta nuevamente.')
+          this.disabled = false
+          this.innerHTML = originalText
+        }
+      })
     })
   </script>
 </body>
