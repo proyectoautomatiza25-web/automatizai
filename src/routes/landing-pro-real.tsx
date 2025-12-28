@@ -63,8 +63,19 @@ export const professionalLandingHTML = `
     .btn-secondary { border: 2px solid #ff006e; color: #ff006e; }
     .btn-secondary:hover { background: rgba(255, 0, 110, 0.1); transform: scale(1.05); }
     .gradient-text { background: linear-gradient(135deg, #ff006e 0%, #ff7f50 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .nav-cta { background: linear-gradient(135deg, #ff006e 0%, #ff6b35 100%); box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4); }
+    .nav-cta { background: linear-gradient(135deg, #ff006e 0%, #ff6b35 100%); box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4); padding: 0.6rem 1.5rem; font-size: 0.95rem; }
     .nav-cta:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255, 0, 110, 0.6); }
+    
+    /* Responsive: botón más pequeño en móviles */
+    @media (max-width: 768px) {
+      .nav-cta { 
+        padding: 0.5rem 1rem; 
+        font-size: 0.85rem; 
+      }
+      .logo-container div {
+        font-size: 1.2rem !important;
+      }
+    }
     .pricing-card.featured { border: 2px solid #ff006e; background: linear-gradient(135deg, rgba(255, 0, 110, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%); box-shadow: 0 8px 30px rgba(255, 0, 110, 0.3); }
     .pricing-badge { background: linear-gradient(135deg, #ff006e 0%, #ff6b35 100%); animation: pulse-pink 2s infinite; }
     
