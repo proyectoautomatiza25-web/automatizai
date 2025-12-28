@@ -3,10 +3,9 @@ import { Hono } from 'hono'
 
 const mercadopagoRoutes = new Hono()
 
-// Configuración de Mercado Pago
-// TODO: Reemplazar con tus credenciales reales
-const MP_ACCESS_TOKEN = 'YOUR_ACCESS_TOKEN' // Reemplazar con tu token
-const MP_PUBLIC_KEY = 'TEST-4a3f8b7b-aded-40b1-adfd-dc095d3316d4'
+// Configuración de Mercado Pago - PRODUCCIÓN
+const MP_ACCESS_TOKEN = 'APP_USR-2953236650411033-122523-66fce79545ad006d0f2128c64885389c-25579762'
+const MP_PUBLIC_KEY = 'APP_USR-aba28b23-58d8-436e-b1d7-410e5070784f'
 
 // Planes disponibles (para AutomatizA SUR)
 const PLANS = {
@@ -168,58 +167,81 @@ mercadopagoRoutes.post('/create-subscription', async (c) => {
 })
 
 // POST /api/mercadopago/webhook
-// Webhook para notificaciones de Mercado Pago
+// Webhook para notificaciones de Mercado Pago (Suscripciones)
 mercadopagoRoutes.post('/webhook', async (c) => {
   try {
     const body = await c.req.json()
-    console.log('Webhook MP recibido:', JSON.stringify(body, null, 2))
+    console.log('🔔 Webhook MP recibido:', JSON.stringify(body, null, 2))
 
-    // Tipos de notificación:
-    // - payment: pago creado/actualizado
-    // - merchant_order: orden actualizada
+    // Tipos de notificación para suscripciones:
+    // - subscription_preapproval: suscripción creada/actualizada
+    // - subscription_authorized_payment: pago de suscripción autorizado
+    // - payment: pago individual
 
-    if (body.type === 'payment') {
-      const paymentId = body.data.id
+    if (body.type === 'subscription_preapproval' || body.action === 'subscription_preapproval') {
+      const subscriptionId = body.data?.id || body.id
+      
+      // Obtener detalles de la suscripción
+      const subResponse = await fetch(`https://api.mercadopago.com/preapproval/${subscriptionId}`, {
+        headers: {
+          'Authorization': `Bearer ${MP_ACCESS_TOKEN}`
+        }
+      })
 
-      // Obtener detalles del pago
+      if (!subResponse.ok) {
+        console.error('Error obteniendo suscripción:', await subResponse.text())
+        return c.json({ error: 'Error obteniendo suscripción' }, 500)
+      }
+
+      const subscription = await subResponse.json()
+      console.log('📋 Detalles de suscripción:', JSON.stringify(subscription, null, 2))
+
+      const externalRef = subscription.external_reference
+      const [planId] = externalRef.split('_')
+      const userEmail = subscription.payer_email
+
+      if (subscription.status === 'authorized') {
+        console.log(`✅ Suscripción AUTORIZADA: ${userEmail} - Plan: ${planId}`)
+        
+        // TODO: Activar suscripción en tu DB
+        // INSERT INTO subscriptions (email, plan_id, status, mp_subscription_id) 
+        // VALUES (userEmail, planId, 'active', subscriptionId)
+        
+      } else if (subscription.status === 'paused') {
+        console.log(`⏸️ Suscripción PAUSADA: ${userEmail}`)
+        // TODO: Pausar acceso del usuario
+        
+      } else if (subscription.status === 'cancelled') {
+        console.log(`❌ Suscripción CANCELADA: ${userEmail}`)
+        // TODO: Desactivar suscripción en DB
+      }
+    }
+
+    // Notificación de pago de suscripción
+    if (body.type === 'payment' || body.action === 'payment.created') {
+      const paymentId = body.data?.id || body.id
+
       const paymentResponse = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
         headers: {
           'Authorization': `Bearer ${MP_ACCESS_TOKEN}`
         }
       })
 
-      if (!paymentResponse.ok) {
-        console.error('Error obteniendo pago:', await paymentResponse.text())
-        return c.json({ error: 'Error obteniendo pago' }, 500)
-      }
-
-      const payment = await paymentResponse.json()
-      console.log('Detalles del pago:', JSON.stringify(payment, null, 2))
-
-      // Extraer info del external_reference
-      const externalReference = payment.external_reference // formato: userId_planId_timestamp
-      const [userId, planId] = externalReference.split('_')
-
-      if (payment.status === 'approved') {
-        // Pago aprobado - activar suscripción
-        console.log(`✅ Pago aprobado para user ${userId}, plan ${planId}`)
-
-        // Aquí actualizar la DB del usuario:
-        // UPDATE users SET subscription_plan = planId, subscription_status = 'active', subscription_start = NOW(), subscription_end = NOW() + INTERVAL 1 MONTH
-
-        // Enviar email de confirmación, etc.
-      } else if (payment.status === 'rejected') {
-        console.log(`❌ Pago rechazado para user ${userId}`)
-        // Notificar al usuario
-      } else if (payment.status === 'in_process') {
-        console.log(`⏳ Pago en proceso para user ${userId}`)
+      if (paymentResponse.ok) {
+        const payment = await paymentResponse.json()
+        console.log('💳 Pago recibido:', payment.status, 'Monto:', payment.transaction_amount)
+        
+        if (payment.status === 'approved') {
+          console.log('✅ Pago aprobado - Renovación exitosa')
+          // TODO: Extender período de suscripción
+        }
       }
     }
 
     return c.json({ success: true })
 
   } catch (error) {
-    console.error('Error en webhook:', error)
+    console.error('❌ Error en webhook:', error)
     return c.json({ error: 'Error procesando webhook' }, 500)
   }
 })
