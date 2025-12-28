@@ -4,7 +4,7 @@ import { serveStatic } from 'hono/cloudflare-workers'
 import { dashboardHTML } from './routes/dashboard'
 import { templatesPageHTML } from './routes/templates'
 import { apiKeysPageHTML } from './routes/api-keys'
-import { completeLandingHTML } from './routes/landing-complete'
+import { professionalLandingHTML } from './routes/landing-pro-real'
 import { paymentSuccessPage, paymentFailurePage, paymentPendingPage } from './routes/payment-pages'
 import apiRoutes from './routes/api-routes'
 import mercadopagoRoutes from './routes/mercadopago'
@@ -164,6 +164,44 @@ app.post('/api/user/api-keys', async (c) => {
   } catch (error) {
     console.error('Error guardando API key:', error)
     return c.json({ error: 'Error al guardar API key' }, 500)
+  }
+})
+
+// Contact form endpoint
+app.post('/api/contact', async (c) => {
+  try {
+    const { name, email, phone, message, to } = await c.req.json()
+    
+    // Validación
+    if (!name || !email || !message) {
+      return c.json({ error: 'Faltan campos requeridos' }, 400)
+    }
+    
+    // Aquí simularemos el envío de email
+    // En producción, usar un servicio como Resend, SendGrid, etc.
+    console.log('📧 Nuevo mensaje de contacto:', {
+      name,
+      email,
+      phone,
+      message,
+      to: to || 'proyecto.automatiza.cl',
+      timestamp: new Date().toISOString()
+    })
+    
+    // Guardar en base de datos
+    const { DB } = c.env
+    await DB.prepare(`
+      INSERT INTO contacts (name, email, phone, message, created_at)
+      VALUES (?, ?, ?, ?, datetime('now'))
+    `).bind(name, email, phone || null, message).run()
+    
+    return c.json({ 
+      success: true, 
+      message: 'Mensaje recibido. Te contactaremos pronto!' 
+    })
+  } catch (error) {
+    console.error('Error en formulario de contacto:', error)
+    return c.json({ error: 'Error al enviar mensaje' }, 500)
   }
 })
 
@@ -328,7 +366,7 @@ app.get('/api/stats', async (c) => {
 
 // Landing page
 app.get('/', (c) => {
-  return c.html(completeLandingHTML)
+  return c.html(professionalLandingHTML)
 })
 
 // Login page
