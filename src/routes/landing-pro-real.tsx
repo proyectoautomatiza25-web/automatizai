@@ -62,7 +62,7 @@ export const professionalLandingHTML = `
     .btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 30px rgba(255, 0, 110, 0.6); animation: pulse-pink 1.5s infinite; }
     .btn-secondary { border: 2px solid #ff006e; color: #ff006e; }
     .btn-secondary:hover { background: rgba(255, 0, 110, 0.1); transform: scale(1.05); }
-    .gradient-text { background: linear-gradient(135deg, #ff006e 0%, #ff7f50 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradient-shift 3s ease infinite; }
+    .gradient-text { background: linear-gradient(135deg, #ff006e 0%, #ff7f50 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .nav-cta { background: linear-gradient(135deg, #ff006e 0%, #ff6b35 100%); box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4); }
     .nav-cta:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255, 0, 110, 0.6); }
     .pricing-card.featured { border: 2px solid #ff006e; background: linear-gradient(135deg, rgba(255, 0, 110, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%); box-shadow: 0 8px 30px rgba(255, 0, 110, 0.3); }
@@ -110,8 +110,8 @@ export const professionalLandingHTML = `
       100% { left: 150%; }
     }
     
-    /* Section titles con gradiente animado */
-    .section-title { background: linear-gradient(135deg, #ff006e 0%, #ff6b35 50%, #ff006e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 200%; animation: gradient-move 4s ease infinite; }
+    /* Section titles SIN gradiente en texto normal, solo en .gradient-text */
+    .section-title { color: white; }
     
     @keyframes gradient-move {
       0%, 100% { background-position: 0% 50%; }
@@ -129,7 +129,7 @@ export const professionalLandingHTML = `
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo-container">
-        <img src="https://www.genspark.ai/api/files/s/U8v18KZv?cache_control=3600" alt="AutomatizA SUR Logo" class="logo-image" />
+        <img src="https://www.genspark.ai/api/files/s/Vk0v61iZ" alt="AutomatizA SUR Logo" class="logo-image" />
         <div class="logo-text">AutomatizA SUR</div>
       </div>
       <ul class="nav-links">
@@ -182,7 +182,7 @@ export const professionalLandingHTML = `
   <!-- Herramientas -->
   <section id="herramientas" style="padding: 4rem 2rem; background: rgba(0, 0, 0, 0.02);">
     <div style="max-width: 1280px; margin: 0 auto; text-align: center;">
-      <h2 class="section-title fade-in-up">Herramientas que <span class="gradient-text">Dominamos</span></h2>
+      <h2 class="section-title fade-in-up"><span class="gradient-text">Herramientas</span> que Dominamos</h2>
       <p style="color: var(--gray-400); margin-bottom: 3rem; font-size: 1.1rem;">
         Trabajamos con las mejores plataformas del mercado
       </p>
@@ -226,44 +226,51 @@ export const professionalLandingHTML = `
         
         <!-- PostgreSQL -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <img src="https://sspark.genspark.ai/cfimages?u1=7n15OAjRS8CmQ7KrBMQdxUaFf8OyhzFDDIHiaR2h11uvv%2F553Vj91dnSkPF2Yfp5qSLtZBx0S%2BYyh0t9%2ByWyoBujyquqMia75C9%2FQWpBOQ%3D%3D&u2=BkkcMsUipHR%2FrHy%2F&width=400" alt="PostgreSQL" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <div style="width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">🐘</div>
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">PostgreSQL</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Base de Datos</p>
         </div>
         
         <!-- MySQL -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <img src="https://sspark.genspark.ai/cfimages?u1=gJokY7V%2F0fzWXPQCNiovnBvAQ%2F7lwKoK3Cr233u%2FWnwyREUdeaRqCAUCxOyDo0NSTrYytVgqxZ7YkwLEtF7VALhzIaGQ4%2B7WO%2FRomtQLgVp8c4SShQIuod4dUJPtK7PMWpy%2BLiJUqJc4suYdzyjduhZ5fObf5K%2F691WykMlCadCZ&u2=NYXspk7lacDBJIoO&width=400" alt="MySQL" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <div style="width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">🗄️</div>
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">MySQL</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Base de Datos</p>
         </div>
         
         <!-- Excel -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <img src="https://sspark.genspark.ai/cfimages?u1=JQ41JmYa48ubFNU4jthPdVLYGmNgxukl81lEGjEzA2VUqywC6yKYejhe31Je6T6f2UWKZzpk6iBCFxYxN5yfnsxwsvr4UwixbrMOy2eHRjVT3ZnE4sLEmgQM9tBe5N1e9E8UF8jmKf%2FbPjBpCzmQXBlUu3vDZPxYiuv2fb8vthFbhB6e6pjt2mFXPM%2Fvpz07qcxsNmtX6w1mBoqGWlfZ40vV57k9t9v7dQSqKKR5FyNapJhS8O9s4bG%2F&u2=ie8RtBKkuGWlKuKG&width=400" alt="Excel" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <div style="width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">📊</div>
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Excel</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Hojas de Cálculo</p>
         </div>
         
         <!-- Google Sheets -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <img src="https://sspark.genspark.ai/cfimages?u1=kbnsos3xwhRe5hzQLwzjndTFBPKM7DIr0pZEwAAbSAzv27gCa1Q3ndxS%2BMG6iZa0KLxi6BvNT%2FjkdJydeHISqg1ZkemBhkZNN4K4P%2BLgYA%3D%3D&u2=bfBfmfywwyhF3ZAn&width=400" alt="Google Sheets" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <div style="width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">📈</div>
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Sheets</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Hojas Google</p>
         </div>
         
         <!-- Salesforce -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <img src="https://sspark.genspark.ai/cfimages?u1=Jzgoo%2FewcOw%2BrDq7%2B5ep7PNapFlMtcUgTzr15%2BuD1EANcG%2BeEe1n3ztabqNhGoruThJjAg%2F4MwMQR08XZWeclmCFfG%2F2FLpTzxnOK%2B6smH23KeoYsg3nlLkcEDg%3D&u2=LOMijLJJ%2F0VfU4UW&width=400" alt="Salesforce" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <div style="width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">☁️</div>
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Salesforce</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">CRM</p>
         </div>
         
         <!-- Slack -->
         <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
-          <img src="https://sspark.genspark.ai/cfimages?u1=kl%2BKvNFivzH3cexRvGu3vZmK7cr9mngpwk7aUvxaYP%2FBEPHubg8fhSc59ZUHc6JqfkebTdVoQf69QjSRHQvwkWTG5%2B5GFVllIXRWqzfFow%3D%3D&u2=kkgeuxkX7Tn8et6F&width=400" alt="Slack" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <div style="width: 80px; height: 80px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 4rem;">💬</div>
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Slack</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Comunicación</p>
+        </div>
+        
+        <!-- Facebook -->
+        <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
+          <img src="https://sspark.genspark.ai/cfimages?u1=ny3J0McF3MBD3XT2QNe19bnjAyYWA4C3%2FFehA%2F8Z0ZJFHTJGqdeBQHoliicm40o7F2HDIvct9y4duLLzdPvNjCb57QFoi7uCn4QWChh8BN2sgbavC3IqvZh7&u2=ZyKTnlsDc0k1bNSG&width=400" alt="Facebook" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Facebook</h3>
+          <p style="color: var(--gray-400); font-size: 0.9rem;">Redes Sociales</p>
         </div>
 
       </div>
