@@ -34,9 +34,16 @@ export const professionalLandingHTML = `
     }
     
     .logo-image {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(255, 0, 110, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .logo-image:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
     }
     
     .logo-text {
@@ -49,14 +56,70 @@ export const professionalLandingHTML = `
       letter-spacing: -0.5px;
     }
     
-    /* Override colores en toda la página */
-    .navbar { background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 0, 110, 0.05) 100%); }
-    .btn-primary { background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3); }
-    .gradient-text { background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-cta { background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); }
-    .pricing-card.featured { border: 2px solid #ff6b35; background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 0, 110, 0.05) 100%); }
-    .pricing-badge { background: linear-gradient(135deg, #ff6b35 0%, #ff006e 100%); }
+    /* Override colores en toda la página con MÁS ROSADO */
+    .navbar { background: linear-gradient(135deg, rgba(255, 0, 110, 0.08) 0%, rgba(255, 107, 53, 0.05) 100%); backdrop-filter: blur(10px); }
+    .btn-primary { background: linear-gradient(135deg, #ff006e 0%, #ff6b35 100%); box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4); }
+    .btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 30px rgba(255, 0, 110, 0.6); animation: pulse-pink 1.5s infinite; }
+    .btn-secondary { border: 2px solid #ff006e; color: #ff006e; }
+    .btn-secondary:hover { background: rgba(255, 0, 110, 0.1); transform: scale(1.05); }
+    .gradient-text { background: linear-gradient(135deg, #ff006e 0%, #ff7f50 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradient-shift 3s ease infinite; }
+    .nav-cta { background: linear-gradient(135deg, #ff006e 0%, #ff6b35 100%); box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4); }
+    .nav-cta:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(255, 0, 110, 0.6); }
+    .pricing-card.featured { border: 2px solid #ff006e; background: linear-gradient(135deg, rgba(255, 0, 110, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%); box-shadow: 0 8px 30px rgba(255, 0, 110, 0.3); }
+    .pricing-badge { background: linear-gradient(135deg, #ff006e 0%, #ff6b35 100%); animation: pulse-pink 2s infinite; }
+    
+    /* ANIMACIONES GENIALES */
+    @keyframes pulse-pink {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 110, 0.4); }
+      50% { box-shadow: 0 0 40px rgba(255, 0, 110, 0.8); }
+    }
+    
+    @keyframes gradient-shift {
+      0%, 100% { background: linear-gradient(135deg, #ff006e 0%, #ff7f50 100%); }
+      50% { background: linear-gradient(135deg, #ff7f50 0%, #ff006e 100%); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes bounce-in {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    /* Hero con animación */
+    .hero { background: radial-gradient(circle at top right, rgba(255, 0, 110, 0.15), transparent 50%), radial-gradient(circle at bottom left, rgba(255, 107, 53, 0.15), transparent 50%); }
+    .hero-content { animation: bounce-in 1s ease-out; }
+    
+    /* Tool cards con hover */
+    .tool-card:hover { transform: translateY(-10px) scale(1.05); border-color: #ff006e; background: linear-gradient(135deg, rgba(255, 0, 110, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%); box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4); }
+    .tool-card img { transition: all 0.3s ease; }
+    .tool-card:hover img { transform: scale(1.2) rotate(5deg); filter: drop-shadow(0 0 10px rgba(255, 0, 110, 0.6)); }
+    
+    /* Feature cards con animación */
+    .feature-card { position: relative; overflow: hidden; }
+    .feature-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255, 0, 110, 0.1), transparent); transform: rotate(45deg); transition: all 0.5s; opacity: 0; }
+    .feature-card:hover::before { opacity: 1; animation: shine 1.5s ease; }
+    
+    @keyframes shine {
+      0% { left: -50%; }
+      100% { left: 150%; }
+    }
+    
+    /* Section titles con gradiente animado */
+    .section-title { background: linear-gradient(135deg, #ff006e 0%, #ff6b35 50%, #ff006e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 200%; animation: gradient-move 4s ease infinite; }
+    
+    @keyframes gradient-move {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Scroll progress bar con rosado */
+    #scroll-progress { background: linear-gradient(90deg, #ff006e 0%, #ff7f50 100%); box-shadow: 0 0 10px rgba(255, 0, 110, 0.8); }
   </style>
 </head>
 <body>
@@ -124,7 +187,7 @@ export const professionalLandingHTML = `
         Trabajamos con las mejores plataformas del mercado
       </p>
       
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
         
         <!-- n8n -->
         <div class="fade-in-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s;">
@@ -155,10 +218,52 @@ export const professionalLandingHTML = `
         </div>
 
         <!-- Gmail -->
-        <div class="fade-in-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s;">
+        <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
           <img src="https://sspark.genspark.ai/cfimages?u1=jdpaPZ%2FxQ81%2B2KLwdqRbNMc6qmalyA7pvt4qCTlBG9E8uAVKEpiW77IGjUT7%2BrHEav71YgEs%2BeVxO8FEmv%2BHj3wEgLdjXbYfRVGezg%3D%3D&u2=%2BMp4o6GufCtZk1ea&width=400" alt="Gmail" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
           <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Gmail</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem;">Email Automation</p>
+        </div>
+        
+        <!-- PostgreSQL -->
+        <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
+          <img src="https://sspark.genspark.ai/cfimages?u1=7n15OAjRS8CmQ7KrBMQdxUaFf8OyhzFDDIHiaR2h11uvv%2F553Vj91dnSkPF2Yfp5qSLtZBx0S%2BYyh0t9%2ByWyoBujyquqMia75C9%2FQWpBOQ%3D%3D&u2=BkkcMsUipHR%2FrHy%2F&width=400" alt="PostgreSQL" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">PostgreSQL</h3>
+          <p style="color: var(--gray-400); font-size: 0.9rem;">Base de Datos</p>
+        </div>
+        
+        <!-- MySQL -->
+        <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
+          <img src="https://sspark.genspark.ai/cfimages?u1=gJokY7V%2F0fzWXPQCNiovnBvAQ%2F7lwKoK3Cr233u%2FWnwyREUdeaRqCAUCxOyDo0NSTrYytVgqxZ7YkwLEtF7VALhzIaGQ4%2B7WO%2FRomtQLgVp8c4SShQIuod4dUJPtK7PMWpy%2BLiJUqJc4suYdzyjduhZ5fObf5K%2F691WykMlCadCZ&u2=NYXspk7lacDBJIoO&width=400" alt="MySQL" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">MySQL</h3>
+          <p style="color: var(--gray-400); font-size: 0.9rem;">Base de Datos</p>
+        </div>
+        
+        <!-- Excel -->
+        <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
+          <img src="https://sspark.genspark.ai/cfimages?u1=JQ41JmYa48ubFNU4jthPdVLYGmNgxukl81lEGjEzA2VUqywC6yKYejhe31Je6T6f2UWKZzpk6iBCFxYxN5yfnsxwsvr4UwixbrMOy2eHRjVT3ZnE4sLEmgQM9tBe5N1e9E8UF8jmKf%2FbPjBpCzmQXBlUu3vDZPxYiuv2fb8vthFbhB6e6pjt2mFXPM%2Fvpz07qcxsNmtX6w1mBoqGWlfZ40vV57k9t9v7dQSqKKR5FyNapJhS8O9s4bG%2F&u2=ie8RtBKkuGWlKuKG&width=400" alt="Excel" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Excel</h3>
+          <p style="color: var(--gray-400); font-size: 0.9rem;">Hojas de Cálculo</p>
+        </div>
+        
+        <!-- Google Sheets -->
+        <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
+          <img src="https://sspark.genspark.ai/cfimages?u1=kbnsos3xwhRe5hzQLwzjndTFBPKM7DIr0pZEwAAbSAzv27gCa1Q3ndxS%2BMG6iZa0KLxi6BvNT%2FjkdJydeHISqg1ZkemBhkZNN4K4P%2BLgYA%3D%3D&u2=bfBfmfywwyhF3ZAn&width=400" alt="Google Sheets" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Sheets</h3>
+          <p style="color: var(--gray-400); font-size: 0.9rem;">Hojas Google</p>
+        </div>
+        
+        <!-- Salesforce -->
+        <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
+          <img src="https://sspark.genspark.ai/cfimages?u1=Jzgoo%2FewcOw%2BrDq7%2B5ep7PNapFlMtcUgTzr15%2BuD1EANcG%2BeEe1n3ztabqNhGoruThJjAg%2F4MwMQR08XZWeclmCFfG%2F2FLpTzxnOK%2B6smH23KeoYsg3nlLkcEDg%3D&u2=LOMijLJJ%2F0VfU4UW&width=400" alt="Salesforce" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Salesforce</h3>
+          <p style="color: var(--gray-400); font-size: 0.9rem;">CRM</p>
+        </div>
+        
+        <!-- Slack -->
+        <div class="fade-in-up tool-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.3s; cursor: pointer;">
+          <img src="https://sspark.genspark.ai/cfimages?u1=kl%2BKvNFivzH3cexRvGu3vZmK7cr9mngpwk7aUvxaYP%2FBEPHubg8fhSc59ZUHc6JqfkebTdVoQf69QjSRHQvwkWTG5%2B5GFVllIXRWqzfFow%3D%3D&u2=kkgeuxkX7Tn8et6F&width=400" alt="Slack" style="width: 80px; height: 80px; margin: 0 auto 1rem; object-fit: contain;" />
+          <h3 style="color: white; margin-bottom: 0.5rem; font-size: 1.5rem;">Slack</h3>
+          <p style="color: var(--gray-400); font-size: 0.9rem;">Comunicación</p>
         </div>
 
       </div>
