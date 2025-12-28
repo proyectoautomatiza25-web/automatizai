@@ -483,7 +483,11 @@ export const professionalLandingHTML = `
         Contáctanos y cuéntanos qué necesitas
       </p>
 
-      <form id="contact-form" class="fade-in-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 3rem;">
+      <form id="contact-form" action="https://formsubmit.co/proyecto.automatiza25@gmail.com" method="POST" class="fade-in-up" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 3rem;">
+        <input type="hidden" name="_subject" value="Nuevo contacto desde AutomatizA SUR">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://automatizasur.cl?mensaje=enviado">
         
         <div style="margin-bottom: 1.5rem;">
           <label style="display: block; color: white; margin-bottom: 0.5rem; font-weight: 600;">Nombre Completo</label>
@@ -604,53 +608,9 @@ export const professionalLandingHTML = `
   <script src="/static/chatbot.js"></script>
   
   <script>
-    // Contact form handler
-    document.getElementById('contact-form').addEventListener('submit', async (e) => {
-      e.preventDefault()
-      
-      const form = e.target
-      const status = document.getElementById('contact-status')
-      const submitBtn = form.querySelector('button[type="submit"]')
-      
-      const formData = {
-        name: form.name.value,
-        email: form.email.value,
-        phone: form.phone.value,
-        message: form.message.value,
-        to: 'proyecto.automatiza25@gmail.com'
-      }
-      
-      submitBtn.disabled = true
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...'
-      
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        })
-        
-        if (response.ok) {
-          status.style.display = 'block'
-          status.style.background = 'rgba(16, 185, 129, 0.1)'
-          status.style.border = '2px solid #10b981'
-          status.style.color = '#10b981'
-          status.textContent = '✅ Mensaje enviado! Te responderemos pronto.'
-          form.reset()
-        } else {
-          throw new Error('Error al enviar')
-        }
-      } catch (error) {
-        status.style.display = 'block'
-        status.style.background = 'rgba(239, 68, 68, 0.1)'
-        status.style.border = '2px solid #ef4444'
-        status.style.color = '#ef4444'
-        status.textContent = '❌ Error al enviar. Por favor, escribe directamente a proyecto.automatiza25@gmail.com'
-      } finally {
-        submitBtn.disabled = false
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensaje'
-      }
-    })
+    // Contact form handler - usando FormSubmit (envío directo a email)
+    // El formulario se envía automáticamente a proyecto.automatiza25@gmail.com
+    // Ya no necesita JavaScript, el formulario HTML nativo lo maneja
 
     // ========================================
     // MERCADO PAGO INTEGRATION
