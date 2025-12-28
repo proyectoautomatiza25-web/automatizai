@@ -617,7 +617,7 @@ export const professionalLandingHTML = `
         email: form.email.value,
         phone: form.phone.value,
         message: form.message.value,
-        to: 'proyecto.automatiza.cl'
+        to: 'proyecto.automatiza25@gmail.com'
       }
       
       submitBtn.disabled = true
@@ -645,7 +645,7 @@ export const professionalLandingHTML = `
         status.style.background = 'rgba(239, 68, 68, 0.1)'
         status.style.border = '2px solid #ef4444'
         status.style.color = '#ef4444'
-        status.textContent = '❌ Error al enviar. Por favor, escribe directamente a proyecto.automatiza.cl'
+        status.textContent = '❌ Error al enviar. Por favor, escribe directamente a proyecto.automatiza25@gmail.com'
       } finally {
         submitBtn.disabled = false
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Mensaje'
