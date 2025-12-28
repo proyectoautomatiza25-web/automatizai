@@ -662,19 +662,13 @@ export const professionalLandingHTML = `
         
         // Mostrar loading
         this.disabled = true
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...'
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirigiendo a Mercado Pago...'
         
         try {
-          // Obtener email del usuario (o pedirlo)
-          let userEmail = prompt('Ingresa tu email para continuar con el pago:', '')
-          if (!userEmail || !userEmail.includes('@')) {
-            alert('⚠️ Email inválido. Por favor, intenta de nuevo.')
-            this.disabled = false
-            this.innerHTML = originalText
-            return
-          }
+          // Email genérico - MP pedirá el email real en su checkout
+          const userEmail = 'cliente@automatizasur.cl'
           
-          // Crear suscripción recurrente
+          // Crear preferencia de pago
           const response = await fetch('/api/mercadopago/create-subscription', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -685,13 +679,17 @@ export const professionalLandingHTML = `
           })
           
           if (!response.ok) {
-            throw new Error('Error al crear suscripción')
+            throw new Error('Error al crear preferencia de pago')
           }
           
           const data = await response.json()
           
-          // Redirigir a Mercado Pago (usar sandbox en desarrollo)
-          window.location.href = data.sandboxInitPoint || data.initPoint
+          // Redirigir INMEDIATAMENTE a Mercado Pago
+          if (data.initPoint) {
+            window.location.href = data.initPoint
+          } else {
+            throw new Error('No se recibió URL de pago')
+          }
           
         } catch (error) {
           console.error('Error:', error)
