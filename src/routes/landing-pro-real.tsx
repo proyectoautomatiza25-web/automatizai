@@ -662,31 +662,32 @@ export const professionalLandingHTML = `
         
         // Mostrar loading
         this.disabled = true
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirigiendo a Mercado Pago...'
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirigiendo a Flow...'
         
         try {
-          // Email genérico - MP pedirá el email real en su checkout
+          // Email genérico - Flow pedirá el email real en su checkout
           const userEmail = 'cliente@automatizasur.cl'
           
-          // Crear preferencia de pago
-          const response = await fetch('/api/mercadopago/create-subscription', {
+          // Crear suscripción en Flow
+          const response = await fetch('/api/flow/create-subscription', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               planId: planId,
-              userEmail: userEmail
+              userEmail: userEmail,
+              userName: 'Cliente'
             })
           })
           
           if (!response.ok) {
-            throw new Error('Error al crear preferencia de pago')
+            throw new Error('Error al crear suscripción')
           }
           
           const data = await response.json()
           
-          // Redirigir INMEDIATAMENTE a Mercado Pago
-          if (data.initPoint) {
-            window.location.href = data.initPoint
+          // Redirigir INMEDIATAMENTE a Flow
+          if (data.url) {
+            window.location.href = data.url
           } else {
             throw new Error('No se recibió URL de pago')
           }

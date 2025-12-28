@@ -8,6 +8,7 @@ import { professionalLandingHTML } from './routes/landing-pro-real'
 import { paymentSuccessPage, paymentFailurePage, paymentPendingPage } from './routes/payment-pages'
 import apiRoutes from './routes/api-routes'
 import mercadopagoRoutes from './routes/mercadopago'
+import flowRoutes from './routes/flow'
 
 type Bindings = {
   DB: D1Database;
@@ -24,6 +25,7 @@ app.use('/static/*', serveStatic({ root: './public' }))
 // Mount API routes
 app.route('/api', apiRoutes)
 app.route('/api/mercadopago', mercadopagoRoutes)
+app.route('/api/flow', flowRoutes)
 
 // ============================================
 // API ROUTES
