@@ -79,15 +79,20 @@ const PLANS = {
   }
 }
 
-// Función para generar firma HMAC SHA256 usando Web Crypto API
-async function generateSignature(params: Record<string, any>): Promise<string> {
-  // Ordenar parámetros alfabéticamente
-  const sortedKeys = Object.keys(params).sort()
-  const paramsString = sortedKeys
-    .map(key => `${key}${params[key]}`)
-    .join('')
 
-  // Generar firma HMAC SHA256 con Web Crypto API
+
+// Función auxiliar para generar la firma de Flow (formato: parámetro1valor1parámetro2valor2...)
+async function generateFlowSignature(params: Record<string, any>): Promise<string> {
+  // 1. Ordenar parámetros alfabéticamente por llave
+  const sortedKeys = Object.keys(params).sort()
+  
+  // 2. Concatenar llave y valor
+  let paramsString = ''
+  for (const key of sortedKeys) {
+    paramsString += key + params[key]
+  }
+
+  // 3. Generar HMAC SHA256
   const encoder = new TextEncoder()
   const keyData = encoder.encode(FLOW_SECRET_KEY)
   const messageData = encoder.encode(paramsString)
@@ -140,7 +145,7 @@ flowRoutes.post('/create-subscription', async (c) => {
     }
 
     // Agregar firma
-    params['s'] = await generateSignature(params)
+    params['s'] = await generateFlowSignature(params)
 
     console.log('📤 Creando suscripción en Flow:', JSON.stringify(params, null, 2))
 
@@ -207,7 +212,7 @@ flowRoutes.post('/confirm', async (c) => {
       apiKey: FLOW_API_KEY,
       token: token
     }
-    params['s'] = await generateSignature(params)
+    params['s'] = await generateFlowSignature(params)
 
     const formData = new URLSearchParams()
     Object.entries(params).forEach(([key, value]) => {
