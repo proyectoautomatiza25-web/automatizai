@@ -130,18 +130,13 @@ flowRoutes.post('/create-subscription', async (c) => {
     // Parámetros para Flow
     const params = {
       apiKey: FLOW_API_KEY,
-      commerceOrder: `SUB-${planId}-${Date.now()}`,
-      subject: `Suscripción ${plan.name} - AutomatizA SUR`,
+      commerceOrder: `ORD-${planId}-${Date.now()}`,
+      subject: `Plan ${plan.name} - AutomatizA SUR`,
       currency: plan.currency,
       amount: plan.price,
       email: userEmail,
       urlConfirmation: 'https://automatizasur.cl/api/flow/confirm',
-      urlReturn: 'https://automatizasur.cl/subscription-success',
-      // Parámetros de suscripción
-      subscription: 1, // Habilitar suscripción
-      subscriptionStart: new Date().toISOString().split('T')[0], // Fecha inicio
-      subscriptionPeriod: plan.intervalUnit, // 'month' o 'year'
-      subscriptionPeriodValue: plan.interval // 1 para mensual
+      urlReturn: 'https://automatizasur.cl/subscription-success'
     }
 
     // Agregar firma
